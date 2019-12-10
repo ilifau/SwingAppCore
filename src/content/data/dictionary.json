@@ -1,0 +1,67 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Workflow Chef",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "name": "Workflow Catering System Specialist",
+      "description": ""
+    },
+    {
+      "id": "3",
+      "name": "Thematic Structure",
+      "description": ""
+    }
+  ],
+  "keywords": [
+    {
+      "id": 1,
+      "name": "Team meeting for the daily overview and distribution of tasks to the kitchen brigade",
+      "description": "The morning meeting provides an overview of the day by discussing all the tasks to be performed and assigning them to the respective employees in the kitchen. If a special event is planned for the day, all necessary arrangements will be discussed.",
+      "category": 1
+    },
+    {
+      "id": 2,
+      "name": "Discussion of the menu of the day",
+      "description": "During the morning meeting, the menu of the day is also discussed. The individual courses are separately covered, the necessary steps and ingredients are named and the tasks are assigned to the respective employee. The employee can then schedule his or her work.",
+      "category": 1
+    },
+    {
+      "id": 3,
+      "name": "Comparison of orders",
+      "description": "In this step it is necessary to compare the ordered food with the delivery note in order to be able to reorder missing items. In addition, the quality of the goods should also be taken into account.",
+      "category": 2
+    }
+  ],
+  "words": [
+    {
+      "id": 1,
+      "name": "Apfel",
+      "description": "Runde Frucht",
+      "synonyms": "Apple",
+      "keywords": [1, 2],
+      "video": "apple.mp4",
+      "videoStart": "applestart.jpg",
+      "videoDesc": "appledesc.mp4",
+      "videoDescStart": "appledescstart.jpg",
+      "img1": "apple1.jpg",
+      "img2": "apple2.jpg"
+    },
+    {
+      "id": 1,
+      "name": "anrichten",
+      "description": "Essen aug einem Teller zurechtlegen",
+      "synonyms": "prepare",
+      "keywords": [2, 3],
+      "video": "prepare.mp4",
+      "videoStart": "preparestart.jpg",
+      "videoDesc": "preparedesc.mp4",
+      "videoDescStart": "preparedescstart.jph",
+      "img1": "prepare1.jpg",
+      "img2": "prepare2.jpg"
+    }
+  ]
+}

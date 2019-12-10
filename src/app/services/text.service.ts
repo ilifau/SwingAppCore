@@ -16,7 +16,7 @@ export class TextService {
       return of(this.data);
     } else {
       return this.http
-          .get('../../assets/data/texts.json')
+          .get('../../content/data/texts.json')
           .pipe(map(this.processData, this));
     }
   }
