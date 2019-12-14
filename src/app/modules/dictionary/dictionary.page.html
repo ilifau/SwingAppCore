@@ -1,9 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      {{ texts.headDictionary }}
-    </ion-title>
+
+    <ion-title>{{ texts.headDictionary }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="presentFilter()">
+        <span *ngIf="ios">Filter</span>
+        <span *ngIf="!ios">
+          <ion-icon slot="icon-only" name="options"></ion-icon>
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateWords()" placeholder="Search"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-list #wordList [hidden]="shownWords === 0">
+      <ion-item-divider>
+        <ion-label>
+          A
+        </ion-label>
+      </ion-item-divider>
+        <ion-item *ngFor="let word of words" routerLink="/app/tabs/dictionary/word/{{word.id}}" [hidden]="word.hide">
+          <ion-label>
+            <h3>{{word.name}}</h3>
+          </ion-label>
+        </ion-item>
+  </ion-list>
+
+  <ion-list-header [hidden]="shownWords > 0">
+    No Words Found
+  </ion-list-header>
+</ion-content>
+
