@@ -16,13 +16,52 @@ export class DictionaryService {
       return of(this.data);
     } else {
       return this.http
-          .get('../../content/data/texts.json')
+          .get('../../content/data/dictionary.json')
           .pipe(map(this.processData, this));
     }
   }
 
+  /**
+   * Process the dictionary data one they are loaded
+   * @param data
+   */
   processData(data: any) {
     this.data = data;
+
+    // sort the words alphabetically
+    this.data.words = this.data.words.sort(function (w1,w2) {
+      if (w1.name < w2.name) {
+          return -1;
+      }
+      else if (w1.name > w2.name) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    });
+
+    // create alphabetical groups from the words
+    this.data.groups = [];
+    this.data.words.forEach((word: any) => {
+      var letter = word.name.charAt(0).toUpperCase();
+      var group = this.data.groups.find(
+          (s: any) => s.letter === letter
+      );
+
+      if (!group) {
+        group = {
+          letter: letter,
+          words: [word]
+        };
+        this.data.groups.push(group);
+      }
+      else {
+        group.words.push(word);
+      }
+    });
+
+    console.log(this.data.groups);
     return this.data;
   }
 
@@ -47,7 +86,7 @@ export class DictionaryService {
     // if any of the words units are not in the
     // exclude tracks then this session passes the track test
     let matchesUnits = false;
-    word.tracks.forEach((id: number) => {
+    word.units.forEach((id: number) => {
       if (excludedUnitIds.indexOf(id) === -1) {
         matchesUnits = true;
       }
@@ -58,7 +97,12 @@ export class DictionaryService {
   }
 
 
-  getFilteredWords(
+  /**
+   * Get an alphabetically grouped list of words
+   * @param queryText
+   * @param excludedUnitIds
+   */
+  getDictionary(
       queryText = '',
       excludedUnitIds: any[] = [],
   ) {
@@ -68,11 +112,22 @@ export class DictionaryService {
           queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
           const queryWords = queryText.split(' ').filter(w => !!w.trim().length);
 
-          data.words.forEach((word: any) => {
-            this.filterWord(word, queryWords, excludedUnitIds);
+          data.groups.forEach((group: any) => {
+            group.hide = true;
+
+            group.words.forEach((word: any) => {
+
+              // check if this word should show or not
+              this.filterWord(word, queryWords, excludedUnitIds);
+
+              // if this word is not hidden then this group should show
+              if (!word.hide) {
+                group.hide = false;
+              }
+            });
           });
 
-          return data.words;
+          return data.groups;
         })
     );
   }

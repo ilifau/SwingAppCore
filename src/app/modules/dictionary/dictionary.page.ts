@@ -19,8 +19,8 @@ export class DictionaryPage implements OnInit {
   ios: boolean;
   queryText = '';
   excludedUnitIds: any = [];
-  shownWords: number;
-  words: any = [];
+  shownGroups: number;
+  groups: any = [];
   texts: any = {};
 
   constructor(
@@ -47,9 +47,9 @@ export class DictionaryPage implements OnInit {
       this.wordList.closeSlidingItems();
     }
 
-    this.dictService.getFilteredWords(this.queryText, this.excludedUnitIds).subscribe((data: Array<Object>) => {
-        this.words = data;
-        this.shownWords = data.length;
+    this.dictService.getDictionary(this.queryText, this.excludedUnitIds).subscribe((data: Array<Object>) => {
+        this.groups = data;
+        this.shownGroups = data.length;
     });
   }
 
