@@ -30,6 +30,11 @@
 
       <ion-item-sliding *ngFor="let word of group.words" #slidingItem [hidden]="word.hide">
         <ion-item routerLink="/app/tabs/dictionary/word/{{word.id}}">
+
+          <ion-thumbnail slot="start">
+            <img src="content/pictures/{{word.img1}}" />
+          </ion-thumbnail>
+
           <ion-label>
             <h3>{{word.name}}</h3>
           </ion-label>

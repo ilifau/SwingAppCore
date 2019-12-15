@@ -71,6 +71,8 @@
       "videoDesc": "video2.mp4",
       "videoNameStart": "start1.jpg",
       "videoDescStart": "start2.jpg",
+      "img1": "apple1.jpg",
+      "img2": "apple2.jpg",
       "img1Source": "www.pixabay.com",
       "img2Source": "www.pixabay.com",
       "relatedWords": [1]
@@ -85,6 +87,8 @@
       "videoDesc": "video2.mp4",
       "videoNameStart": "start1.jpg",
       "videoDescStart": "start2.jpg",
+      "img1": "apple1.jpg",
+      "img2": "apple2.jpg",
       "img1Source": "www.pixabay.com",
       "img2Source": "www.pixabay.com",
       "relatedWords": [1]
