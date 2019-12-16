@@ -61,6 +61,19 @@ export class DictionaryService {
       }
     });
 
+    // replace the related word ids woth the real words
+    this.data.words.forEach((word: any) => {
+      let related = [];
+      word.relatedWords.forEach((id: any) => {
+        let relword =  data.words.find(
+            (s: any) => s.id == id)
+        if (relword) {
+          related.push(relword);
+        }
+      });
+      word.relatedWords = related;
+    });
+
     return this.data;
   }
 
@@ -160,9 +173,6 @@ export class DictionaryService {
         map((data: any) => {
           const word =  data.words.find(
               (s: any) => s.id == id)
-
-          console.log(word);
-
           return word;
         })
     );

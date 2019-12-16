@@ -1,11 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{word.name}}</ion-title>
+    <ion-buttons slot="start">
+    <ion-back-button defaultHref="tabs/dictionary" [text]="texts.commonBack"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-Hello Word
+  <div class="ion-padding-horizontal">
+    <h1>{{word.name}}</h1>
+  </div>
 
+  <div *ngIf="word.videoName">
+    <video src="content/videos/{{word.videoName}}" poster="content/pictures/{{word.videoNameStart}}" controls></video>
+  </div>
+
+  <div class="ion-padding-horizontal">
+    <h2>{{texts.commonDescription}}</h2>
+    <p>{{word.description}}</p>
+  </div>
+
+  <div *ngIf="word.videoDesc">
+    <video src="content/videos/{{word.videoDesc}}" poster="content/pictures/{{word.videoDescStart}}" controls></video>
+  </div>
+
+  <div class="ion-padding-horizontal" *ngIf="word.synonyms">
+    <h2>{{texts.dictSynonyms}}</h2>
+    <p>{{word.synonyms}}</p>
+  </div>
+
+  <div class="ion-text-center" *ngIf="word.img1">
+    <img src="content/pictures/{{word.img1}}" alt="{{word.name}}" />
+    <div class="subline">{{word.img1Source}}</div>
+  </div>
+
+  <div class="ion-text-center" *ngIf="word.img2">
+    <img src="content/pictures/{{word.img2}}" alt="{{word.name}}" />
+    <div class="subline">{{word.img2Source}}</div>
+  </div>
+
+  <div class="ion-padding-horizontal" *ngIf="word.relatedWords">
+    <h2>{{texts.dictRelatedWords}}</h2>
+    <ion-list>
+      <ion-item *ngFor="let related of word.relatedWords" routerLink="/tabs/dictionary/word/{{related.id}}">
+        <ion-thumbnail slot="start">
+          <img src="content/pictures/{{related.img1}}" />
+        </ion-thumbnail>
+        <ion-label>
+          <h3>{{related.name}}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 
 </ion-content>
+
+

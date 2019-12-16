@@ -3,7 +3,15 @@
   "headDictionary": "Wörterbuch",
   "headTraining": "Training",
   "headAdditional": "Weiteres",
+  "commonBack": "Back",
+  "commonFilter": "Filter",
+  "commonWord": "Wort",
+  "commonDescription": "Beschreibung",
   "dictSearch": "Suche",
   "dictNotFound": "Keine Wörter gefunden.",
-  "commonFilter": "Filter"
+  "dictSynonyms": "Synonyme",
+  "dictRelatedWords": "Verwandte Wörter"
+
+
+
 }

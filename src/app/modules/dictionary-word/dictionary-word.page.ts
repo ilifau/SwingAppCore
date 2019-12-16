@@ -30,13 +30,10 @@ export class DictionaryWordPage implements OnInit {
     });
 
     const wordId = this.route.snapshot.paramMap.get('wordId');
-    console.log("wordId="+wordId);
 
     this.dictService.getWord(wordId).subscribe((data: any) => {
       this.word = data;
     });
-
-    console.log(this.word);
 
     this.ios = this.config.get('mode') === 'ios';
   }
