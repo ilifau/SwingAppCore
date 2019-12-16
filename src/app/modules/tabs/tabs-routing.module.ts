@@ -24,6 +24,11 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../dictionary/dictionary.module').then(m => m.DictionaryPageModule)
+          },
+          {
+            path: 'word/:wordId',
+            loadChildren: () =>
+                import('../dictionary-word/dictionary-word.module').then(m => m.DictionaryWordModule)
           }
         ]
       },

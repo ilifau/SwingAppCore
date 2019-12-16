@@ -12,8 +12,8 @@ import { DictionaryService } from '../../services/dictionary.service';
 export class FilterPage implements AfterViewInit {
   ios: boolean;
 
-  modules: {id: number, name: string}[] = [];
-  units: {id: number, name: string, isChecked: boolean}[] = [];
+  modules: {id: any, name: string}[] = [];
+  units: {id: any, name: string, isChecked: boolean}[] = [];
 
   constructor(
       public dictSrv: DictionaryService,

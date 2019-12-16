@@ -1,5 +1,9 @@
 {
   "headHome": "Start",
   "headDictionary": "Wörterbuch",
-  "headTraining": "Training"
+  "headTraining": "Training",
+  "headAdditional": "Weiteres",
+  "dictSearch": "Suche",
+  "dictNotFound": "Keine Wörter gefunden.",
+  "commonFilter": "Filter"
 }

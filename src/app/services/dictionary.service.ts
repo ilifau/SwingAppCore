@@ -61,7 +61,6 @@ export class DictionaryService {
       }
     });
 
-    console.log(this.data.groups);
     return this.data;
   }
 
@@ -86,7 +85,7 @@ export class DictionaryService {
     // if any of the words units are not in the
     // exclude tracks then this session passes the track test
     let matchesUnits = false;
-    word.units.forEach((id: number) => {
+    word.units.forEach((id: any) => {
       if (excludedUnitIds.indexOf(id) === -1) {
         matchesUnits = true;
       }
@@ -152,6 +151,19 @@ export class DictionaryService {
     return this.load().pipe(
         map((data: any) => {
           return data.modules.sort();
+        })
+    );
+  }
+
+  getWord(id: any) {
+    return this.load().pipe(
+        map((data: any) => {
+          const word =  data.words.find(
+              (s: any) => s.id == id)
+
+          console.log(word);
+
+          return word;
         })
     );
   }
