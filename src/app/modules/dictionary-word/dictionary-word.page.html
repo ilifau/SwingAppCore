@@ -12,7 +12,7 @@
   </div>
 
   <div *ngIf="word.videoName">
-    <video src="content/videos/{{word.videoName}}" poster="content/videos/{{word.videoNameStart}}" controls></video>
+    <video src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls></video>
   </div>
 
   <div class="ion-padding-horizontal">
@@ -21,7 +21,7 @@
   </div>
 
   <div *ngIf="word.videoDesc">
-    <video src="content/videos/{{word.videoDesc}}" poster="content/videos/{{word.videoDescStart}}" controls></video>
+    <video src="content/{{word.videoDesc}}" poster="content/{{word.videoDescStart}}" controls></video>
   </div>
 
   <div class="ion-padding-horizontal" *ngIf="word.synonyms">
@@ -30,12 +30,12 @@
   </div>
 
   <div class="ion-text-center" *ngIf="word.img1">
-    <img src="content/pictures/{{word.img1}}" alt="{{word.name}}" />
+    <img src="content/{{word.img1}}" alt="{{word.name}}" />
     <div class="subline">{{word.img1Source}}</div>
   </div>
 
   <div class="ion-text-center" *ngIf="word.img2">
-    <img src="content/pictures/{{word.img2}}" alt="{{word.name}}" />
+    <img src="content/{{word.img2}}" alt="{{word.name}}" />
     <div class="subline">{{word.img2Source}}</div>
   </div>
 
@@ -44,7 +44,7 @@
     <ion-list>
       <ion-item *ngFor="let related of word.relatedWords" routerLink="/tabs/dictionary/word/{{related.id}}">
         <ion-thumbnail slot="start">
-          <img src="content/pictures/{{related.img1}}" />
+          <img src="content/{{related.img1}}" />
         </ion-thumbnail>
         <ion-label>
           <h3>{{related.name}}</h3>

@@ -4,28 +4,28 @@
       "id": "1",
       "name": "Workflow Chef",
       "description": "This is the description of workflow chef.",
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     },
     {
       "id": "2",
       "name": "Workflow Catering System Specialist",
       "description": "This is the description of workflow catering specialist.",
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     },
     {
       "id": "3",
       "name": "Thematic Structure",
       "description": "This is the description of the thematic structure.",
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     }
   ],
   "units": [
@@ -34,30 +34,30 @@
       "name": "Team meeting for the daily overview and distribution of tasks to the kitchen brigade",
       "description": "The morning meeting provides an overview of the day by discussing all the tasks to be performed and assigning them to the respective employees in the kitchen. If a special event is planned for the day, all necessary arrangements will be discussed.",
       "module": 1,
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     },
     {
       "id": 2,
       "name": "Discussion of the menu of the day",
       "description": "During the morning meeting, the menu of the day is also discussed. The individual courses are separately covered, the necessary steps and ingredients are named and the tasks are assigned to the respective employee. The employee can then schedule his or her work.",
       "module": 1,
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     },
     {
       "id": 3,
       "name": "Comparison of orders",
       "description": "In this step it is necessary to compare the ordered food with the delivery note in order to be able to reorder missing items. In addition, the quality of the goods should also be taken into account.",
       "module": 2,
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg"
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg"
     }
   ],
   "words": [
@@ -67,12 +67,12 @@
       "description": "Base of Chips",
       "synonyms": "Potatoe Synonyms",
       "units": [3],
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg",
-      "img1": "apple1.jpg",
-      "img2": "apple2.jpg",
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg",
+      "img1": "pictures/apple1.jpg",
+      "img2": "pictures/apple2.jpg",
       "img1Source": "www.pixabay.com",
       "img2Source": "www.pixabay.com",
       "relatedWords": [1]
@@ -83,12 +83,12 @@
       "description": "Fruit from the pear tree",
       "synonyms": "Pear Synonyms",
       "units": [2, 3],
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg",
-      "img1": "apple1.jpg",
-      "img2": "apple2.jpg",
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg",
+      "img1": "pictures/apple1.jpg",
+      "img2": "pictures/apple2.jpg",
       "img1Source": "www.pixabay.com",
       "img2Source": "www.pixabay.com",
       "relatedWords": [1]
@@ -99,12 +99,12 @@
       "description": "Fruit from the apple tree",
       "synonyms": "Apple Synonyms",
       "units": [1, 2],
-      "videoName": "video1.mp4",
-      "videoDesc": "video2.mp4",
-      "videoNameStart": "start1.jpg",
-      "videoDescStart": "start2.jpg",
-      "img1": "apple1.jpg",
-      "img2": "apple2.jpg",
+      "videoName": "videos/video1.mp4",
+      "videoDesc": "videos/video2.mp4",
+      "videoNameStart": "videos/start1.jpg",
+      "videoDescStart": "videos/start2.jpg",
+      "img1": "pictures/apple1.jpg",
+      "img2": "pictures/apple2.jpg",
       "img1Source": "www.pixabay.com",
       "img2Source": "www.pixabay.com",
       "relatedWords": [2]
