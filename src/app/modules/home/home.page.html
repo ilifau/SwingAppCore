@@ -6,12 +6,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
   <div class="ion-text-center">
-    <img src="assets/images/logo-swing.png" alt="{{texts.aboutSwingLong}}" />
+    <img class="swing-logo" src="assets/images/logo-swing.png" alt="{{texts.aboutSwingLong}}" />
   </div>
 
+  <div class="ion-text-center" [innerHTML]="texts.homeWelcome">
+  </div>
 
   <ion-list>
       <ion-item>
