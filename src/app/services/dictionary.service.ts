@@ -28,6 +28,22 @@ export class DictionaryService {
   processData(data: any) {
     this.data = data;
 
+    // assign the units to the modules
+    this.data.modules.forEach((module: any) => {
+      module.units = [];
+    });
+    this.data.units.forEach((unit: any) => {
+      var module = this.data.modules.find(
+          (s: any) => s.id == unit.module
+      );
+      if (module) {
+        module.units.push(unit);
+      }
+    });
+
+
+    console.log(this.data.modules);
+
     // sort the words alphabetically
     this.data.words = this.data.words.sort(function (w1,w2) {
       if (w1.name < w2.name) {
@@ -61,7 +77,7 @@ export class DictionaryService {
       }
     });
 
-    // replace the related word ids woth the real words
+    // replace the related word ids with the real words
     this.data.words.forEach((word: any) => {
       let related = [];
       word.relatedWords.forEach((id: any) => {

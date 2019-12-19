@@ -24,3 +24,40 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+
+/* SWING Styles */
+
+ion-content {
+
+}
+
+.ion-text-center {
+  // the videos have 720px width
+  // centered content (Images) should center below the videos
+  max-width:720px;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+h1, h2, div, p {
+  color: var(--ion-text-color);
+}
+
+h1 {
+  font-size: 130%;
+}
+
+h2 {
+  font-size: 120%;
+}
+
+.subline {
+  font-size:80%;
+  margin-bottom:1em;
+}

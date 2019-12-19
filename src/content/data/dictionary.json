@@ -1,113 +1,447 @@
 {
-  "modules": [
-    {
-      "id": "1",
-      "name": "Workflow Chef",
-      "description": "This is the description of workflow chef.",
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    },
-    {
-      "id": "2",
-      "name": "Workflow Catering System Specialist",
-      "description": "This is the description of workflow catering specialist.",
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    },
-    {
-      "id": "3",
-      "name": "Thematic Structure",
-      "description": "This is the description of the thematic structure.",
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    }
-  ],
-  "units": [
-    {
-      "id": 1,
-      "name": "Team meeting for the daily overview and distribution of tasks to the kitchen brigade",
-      "description": "The morning meeting provides an overview of the day by discussing all the tasks to be performed and assigning them to the respective employees in the kitchen. If a special event is planned for the day, all necessary arrangements will be discussed.",
-      "module": 1,
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    },
-    {
-      "id": 2,
-      "name": "Discussion of the menu of the day",
-      "description": "During the morning meeting, the menu of the day is also discussed. The individual courses are separately covered, the necessary steps and ingredients are named and the tasks are assigned to the respective employee. The employee can then schedule his or her work.",
-      "module": 1,
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    },
-    {
-      "id": 3,
-      "name": "Comparison of orders",
-      "description": "In this step it is necessary to compare the ordered food with the delivery note in order to be able to reorder missing items. In addition, the quality of the goods should also be taken into account.",
-      "module": 2,
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg"
-    }
-  ],
-  "words": [
-    {
-      "id": 2,
-      "name": "Potatoe",
-      "description": "Base of Chips",
-      "synonyms": "Potatoe Synonyms",
-      "units": [3],
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg",
-      "img1": "pictures/apple1.jpg",
-      "img2": "pictures/apple2.jpg",
-      "img1Source": "www.pixabay.com",
-      "img2Source": "www.pixabay.com",
-      "relatedWords": [1]
-    },
-    {
-      "id": 3,
-      "name": "Pear",
-      "description": "Fruit from the pear tree",
-      "synonyms": "Pear Synonyms",
-      "units": [2, 3],
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg",
-      "img1": "pictures/apple1.jpg",
-      "img2": "pictures/apple2.jpg",
-      "img1Source": "www.pixabay.com",
-      "img2Source": "www.pixabay.com",
-      "relatedWords": [1]
-    },
-    {
-      "id": 1,
-      "name": "Apple",
-      "description": "Fruit from the apple tree",
-      "synonyms": "Apple Synonyms",
-      "units": [1, 2],
-      "videoName": "videos/video1.mp4",
-      "videoDesc": "videos/video2.mp4",
-      "videoNameStart": "videos/start1.jpg",
-      "videoDescStart": "videos/start2.jpg",
-      "img1": "pictures/apple1.jpg",
-      "img2": "pictures/apple2.jpg",
-      "img1Source": "www.pixabay.com",
-      "img2Source": "www.pixabay.com",
-      "relatedWords": [2]
-    }
-  ]
+    "modules": [
+        {
+            "id": "1643",
+            "name": "Koch \/ K\u00f6chin",
+            "description": "Die hier skizzierten Arbeitsphasen entsprechen einem idealtypischen Tagesablauf. Sie sollen das Lernen der Geb\u00e4rdensprach-Wortp\u00e4ckchen erleichtern. Im Arbeitsalltag k\u00f6nnen die einzelnen Phasen anders ablaufen, einige k\u00f6nnen g\u00e4nzlich fehlen oder andere hinzukommen.",
+            "videoName": "videos\/unit1643_name.mp4",
+            "videoDesc": "videos\/unit1643_desc.mp4",
+            "videoNameStart": "videos\/unit1643_name_start.jpg",
+            "videoDescStart": "videos\/unit1643_desc_start.jpg"
+        },
+        {
+            "id": "1644",
+            "name": "Systemgastronom*in",
+            "description": "Die hier skizzierten Arbeitsphasen entsprechen einem idealtypischen Tagesablauf. Sie sollen das Lernen der Geb\u00e4rdensprach-Wortp\u00e4ckchen erleichtern. Im Arbeitsalltag k\u00f6nnen die einzelnen Phasen anders ablaufen, einige k\u00f6nnen g\u00e4nzlich fehlen oder andere hinzukommen.",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1645",
+            "name": "Thematische Strukturierung",
+            "description": "Bei der thematischen Strukturierung werden verwandte Worte den jeweils passenden Oberkategorien zugeordnet.",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        }
+    ],
+    "units": [
+        {
+            "id": "1646",
+            "name": "Teambesprechung und Aufgabenverteilung an das K\u00fcchenpersonal",
+            "description": "Bei der morgendlichen Besprechung werden die Tagesaufgaben besprochen und dem K\u00fcchenpersonal zugeteilt.",
+            "module": "1643",
+            "videoName": "videos\/module1646_name.mp4",
+            "videoDesc": "videos\/module1646_desc.mp4",
+            "videoNameStart": "videos\/module1646_name_start.jpg",
+            "videoDescStart": "videos\/module1646_desc_start.jpg"
+        },
+        {
+            "id": "1647",
+            "name": "Besprechung des Tagesmen\u00fcs ",
+            "description": "Bei der Er\u00f6rterung des Tagesmen\u00fcs werden die einzelnen Men\u00fcpunkte besprochen. Die notwendigen Schritte und Zutaten werden benannt und die Aufgaben dem jeweiligen Mitarbeiter zugewiesen.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1648",
+            "name": "Entgegennahme der bestellten Lebensmittel und \u00dcberpr\u00fcfung auf Vollst\u00e4ndigkeit und Qualit\u00e4t",
+            "description": "Das K\u00fcchenpersonal nimmt Lebensmittellieferungen entgegen und pr\u00fcft diese auf Vollst\u00e4ndigkeit und Qualit\u00e4t. Sind die Lebensmittel frisch? Wurden sie korrekt verpackt? Wurden sie gek\u00fchlt transportiert?",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1649",
+            "name": "Vorbereitung des Arbeitsplatzes",
+            "description": "Vor Zubereitung der Speisen muss der Arbeitsplatz hergerichtet werden. Dazu geh\u00f6rt die Bereitstellung der ben\u00f6tigten Ger\u00e4tschaften wie Schneidebretter, Messer und K\u00fcchenmaschinen sowie der einzelnen Lebensmittelzutaten.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1650",
+            "name": "Vorbereitung der Lebensmittel",
+            "description": "Bei der Vorbereitung der Lebensmittel werden Obst und Gem\u00fcse geputzt, gesch\u00e4lt und in passende St\u00fccke geschnitten. Fleisch und Fisch d\u00fcrfen nicht mit den gleichen Ger\u00e4tschaften wie Gem\u00fcse und Obst in Ber\u00fchrung kommen. Das K\u00fcchenpersonal soll sich stets die H\u00e4nde waschen oder Handschuhe tragen.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1651",
+            "name": "Zubereitung der Speisen",
+            "description": "Die vorbereiten Speisen werden durch Braten, Kochen, Backen, Schmoren oder Kochen zubereitet.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1652",
+            "name": "Anrichten der fertigen Speisen",
+            "description": "Aus den einzelnen Komponenten wird ein vollst\u00e4ndiges Gericht auf dem Teller arrangiert. Ein rasches Arbeiten ist wichtig.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1653",
+            "name": "Servieren der Speisen",
+            "description": "Das fertige Gericht soll unverz\u00fcglich dem Servicepersonal \u00fcbergeben werden. Der Bestellzettel mit der Tischnummer soll neben den angerichteten Speisen bereitliegen, damit die Bestellungen nicht verwechselt werden und jeder Gast sein Essen z\u00fcgig erh\u00e4lt.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1654",
+            "name": "Abwasch",
+            "description": "Abger\u00e4umtes Geschirr sollte gerade in Sto\u00dfzeiten m\u00f6glichst z\u00fcgig gesp\u00fclt werden, damit sich nicht allzu viel schmutziges Geschirr ansammelt und unn\u00f6tig Platz beansprucht.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1655",
+            "name": "Reinigung und Desinfektion der K\u00fcche",
+            "description": "Die K\u00fcche mit ihren verschiedenen Arbeitspl\u00e4tzen und Ger\u00e4tschaften muss nach jedem Arbeitsschritt gereinigt werden. Die regelm\u00e4\u00dfige Desinfektion verhindert die Ausbreitung und Vermehrung von Mikroorganismen und Bakterien.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1656",
+            "name": "K\u00fchlung von Lebensmitteln",
+            "description": "Nicht mehr ben\u00f6tigte Lebensmittel sollen richtig verpackt in den K\u00fchlschrank, K\u00fchlraum oder Gefrierschrank gestellt werden.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1657",
+            "name": "Bestandskontrolle im K\u00fchlhaus",
+            "description": "Der Lagerbestand des K\u00fchlhauses sollte regelm\u00e4\u00dfig \u00fcberpr\u00fcft werden. Sind alle ben\u00f6tigten Lebensmittel vorhanden? M\u00fcssen Lebensmittel nachbestellt werden? Ist das Mindesthaltbarkeitsdatum \u00fcberschritten?",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1658",
+            "name": "Bestellung von Lebensmitteln",
+            "description": "Nach der Bestandskontrolle der vorhandenen Lebensmittel und der Festlegung der Gerichte f\u00fcr die n\u00e4chsten Tage kann eine entsprechende Bestellung beim Lebensmittellieferanten aufgegeben werden.",
+            "module": "1643",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1659",
+            "name": "Bestell\u00fcbersicht",
+            "description": "Bestellte Lebensmittel werden mit dem Lieferschein verglichen und auf ihre Qualit\u00e4t hin \u00fcberpr\u00fcft.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1660",
+            "name": "Zubereitung der Speisen",
+            "description": "Die Zubereitung von Mahlzeiten umfasst das Putzen und Schneiden der Lebensmittel sowie das Kochen, Frittieren, Braten oder Backen. Neben den warmen Gerichten werden auch kalte Speisen wie Sandwiches oder Kuchen zubereitet. ",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1661",
+            "name": "Ben\u00f6tigte Ger\u00e4tschaften",
+            "description": "Alle f\u00fcr die Zubereitung der Speisen und ihre anschlie\u00dfende Verpackung ben\u00f6tigten Ger\u00e4tschaften werden bereitgestellt.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1662",
+            "name": "Mithilfe beim Service",
+            "description": "Zu den Hilfst\u00e4tigkeiten geh\u00f6rt das Bef\u00fcllen von Kaffeeautomaten oder auch die Eingabe der Tagesgerichte in das Kassensystem.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1663",
+            "name": "Belieferung der Filialen mit Speisen",
+            "description": "Zubereitete Lebensmittel werden in Thermobeh\u00e4lter gepackt und in die Filialen geliefert. Dort werde sie in der Essensausgabe bereit gestellt.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1664",
+            "name": "Auff\u00fcllen von Getr\u00e4nke- und Snackautomaten",
+            "description": "Getr\u00e4nke- und Snackautomaten werden auf ihren Inhalt \u00fcberpr\u00fcft und gegebenenfalls wieder aufgef\u00fcllt werden. ",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1665",
+            "name": "Essensausgabe in der Kantine \/ Cafeteria",
+            "description": "Geschirr und Besteck wird in ausreichender Menge bereitgestellt. Bei der Essensausgabe werden die Komponenten der einzelnen Gerichte nach den W\u00fcnschen des Gastes auf dem Teller zusammengestellt. Am Ende der Essenszeit sind die Kassen zu schlie\u00dfen.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1666",
+            "name": "B\u00fcrot\u00e4tigkeiten",
+            "description": "Zu den B\u00fcrot\u00e4tigkeiten geh\u00f6rt das Aufgeben neuer Bestellungen, die Bezahlung von Rechnungen, die Beantwortung von Reservierungsanfragen und die Planung von Veranstaltungen.",
+            "module": "1644",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1667",
+            "name": "Obst und Gem\u00fcse",
+            "description": "Die Kategorie umfasst pflanzliche Lebensmittel, die entweder roh oder gekocht verzehrt werden.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1668",
+            "name": "Kr\u00e4uter, Gew\u00fcrze, So\u00dfen, \u00d6le",
+            "description": "Die Kategorie umfasst W\u00fcrzmittel, die einzeln oder in So\u00dfen und \u00d6len verwendet werden k\u00f6nnen.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1669",
+            "name": "Fleisch und Fisch",
+            "description": "Die Kategorie umfasst Lebensmittel tierischen Ursprungs.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1670",
+            "name": "Backwaren",
+            "description": "Die Kategorie umfasst Brot, Br\u00f6tchen und Backzutaten.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1671",
+            "name": "Milchprodukte",
+            "description": "Die Kategorie umfasst Produkte auf Basis von Milch.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1672",
+            "name": "Getr\u00e4nke",
+            "description": "Die Kategorie umfasst verschiedene Arten von Hei\u00df- und Kaltgetr\u00e4nken.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1673",
+            "name": "Men\u00fc",
+            "description": "Die Kategorie enth\u00e4lt Begriffe f\u00fcr die einzelnen G\u00e4nge und Men\u00fckomponenten.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1674",
+            "name": "Lebensmittelbeschreibungen",
+            "description": "Die Kategorie enth\u00e4lt Bezeichnungen zur Charakterisierung von Gr\u00f6\u00dfe, Temperatur, Anzahl und anderen Eigenschaften.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1675",
+            "name": "Kommunikation",
+            "description": "Die Kategorie umfasst h\u00f6fliche Formulierungen, Fragen oder Verben, um eine andere Person aufzufordern, etwas zu tun.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1676",
+            "name": "Pfanne, Topf und andere Kochutensilien",
+            "description": "Die Kategorie umfasst die zum Kochen erforderlichen nichtelektrischen Ger\u00e4tschaften.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1677",
+            "name": "Geschirr",
+            "description": "Die Kategorie umfasst Essgeschirr, Trinkgef\u00e4\u00dfe und Besteck.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1678",
+            "name": "K\u00fcchenmaschinen",
+            "description": "Die Kategorie umfasst elektrische K\u00fcchenger\u00e4te f\u00fcr die Arbeit in der K\u00fcche.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1679",
+            "name": "Zubereitungsmethoden",
+            "description": "Die Kategorie umfasst verschiedene Aktivit\u00e4ten zur Zubereitung von Lebensmitteln.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        },
+        {
+            "id": "1680",
+            "name": "Zeitangaben ",
+            "description": "Die Kategorie enth\u00e4lt Beschreibungen von Zeiten.",
+            "module": "1645",
+            "videoName": "",
+            "videoDesc": "",
+            "videoNameStart": "",
+            "videoDescStart": ""
+        }
+    ],
+    "words": [
+        {
+            "id": "1681",
+            "number": "",
+            "name": "Apfel",
+            "description": "rundliche, aromatische Frucht des Apfelbaums mit Schale, Fruchtfleisch und Kerngeh\u00e4use",
+            "synonyms": "Apfelfrucht, Paradiesfrucht",
+            "units": [
+                "1667"
+            ],
+            "videoName": "videos\/word1681_name.mp4",
+            "videoDesc": "videos\/word1681_desc.mp4",
+            "videoNameStart": "videos\/word1681_name_start.jpg",
+            "videoDescStart": "videos\/word1681_desc_start.jpg",
+            "img1": "pictures\/word1681_img1.jpg",
+            "img2": "pictures\/word1681_img2.jpg",
+            "img1Source": "www.pixabay.com",
+            "img2Source": "www.pixabay.com",
+            "relatedWords": []
+        },
+        {
+            "id": "1682",
+            "number": "",
+            "name": "anrichten",
+            "description": "vorbereitete Speisen, Salate, Brote u. \u00c4. auf Sch\u00fcsseln und Platten arrangieren und zum Verzehr bereitstellen",
+            "synonyms": "garnieren, herrichten, arrangieren, zurechtmachen",
+            "units": [
+                "1652",
+                "1663",
+                "1665",
+                "1679"
+            ],
+            "videoName": "videos\/word1682_name.mp4",
+            "videoDesc": "videos\/word1682_desc.mp4",
+            "videoNameStart": "videos\/word1682_name_start.jpg",
+            "videoDescStart": "videos\/word1682_desc_start.jpg",
+            "img1": "pictures\/word1682_img1.jpg",
+            "img2": "pictures\/word1682_img2.jpg",
+            "img1Source": "www.pixabay.com",
+            "img2Source": "www.pixabay.com",
+            "relatedWords": []
+        },
+        {
+            "id": "1683",
+            "number": "",
+            "name": "gro\u00df",
+            "description": "riesig in der Gr\u00f6\u00dfe oder Menge; eine bestimmte L\u00e4nge, H\u00f6he aufweisend",
+            "synonyms": "gigantisch, riesig, massiv, \u00fcberdimensional",
+            "units": [
+                "1648",
+                "1658",
+                "1674"
+            ],
+            "videoName": "videos\/word1683_name.mp4",
+            "videoDesc": "videos\/word1683_desc.mp4",
+            "videoNameStart": "videos\/word1683_name_start.jpg",
+            "videoDescStart": "videos\/word1683_desc_start.jpg",
+            "img1": "pictures\/word1683_img1.jpg",
+            "img2": "pictures\/word1683_img2.jpg",
+            "img1Source": "www.pixabay.com",
+            "img2Source": "www.pixabay.com",
+            "relatedWords": []
+        }
+    ]
 }
