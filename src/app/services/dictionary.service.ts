@@ -42,8 +42,6 @@ export class DictionaryService {
     });
 
 
-    console.log(this.data.modules);
-
     // sort the words alphabetically
     this.data.words = this.data.words.sort(function (w1,w2) {
       if (w1.name < w2.name) {

@@ -1,0 +1,24 @@
+<ion-header>
+  <section>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/additional" [text]="texts.commonBack"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </section>
+</ion-header>
+
+<ion-content>
+  <section>
+
+    <p *ngIf="media.addiSignLanguage">
+      <video src="content/{{media.addiSignLanguage}}" poster="content/{{media.addiSignLanguageStart}}" controls></video>
+    </p>
+
+    <div class="ion-padding-horizontal">
+      <h2 [innerHTML]="texts.addiHeadSignLanguage"></h2>
+      <p [innerHTML]="texts.addiAboutSignLanguage"></p>
+    </div>
+
+  </section>
+</ion-content>

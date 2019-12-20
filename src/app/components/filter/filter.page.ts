@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { Config, ModalController, NavParams } from '@ionic/angular';
 
+import { TextService } from '../../services/text.service';
 import { DictionaryService } from '../../services/dictionary.service';
 
 
@@ -12,11 +13,13 @@ import { DictionaryService } from '../../services/dictionary.service';
 export class FilterPage implements OnInit {
   ios: boolean;
 
+  texts: any = {};
   modules: any = [];
   units: any = [];
 
   constructor(
-      public dictSrv: DictionaryService,
+      public textService: TextService,
+      public dictService: DictionaryService,
       private config: Config,
       public modalCtrl: ModalController,
       public navParams: NavParams
@@ -30,10 +33,14 @@ export class FilterPage implements OnInit {
   }
 
   ngOnInit() {
+    this.textService.load().subscribe((data: any) => {
+      this.texts = data;
+    });
+
     // passed in array of unit ids that should be excluded (unchecked)
     const excludedUnitIds = this.navParams.get('excludedUnitIds');
 
-    this.dictSrv.getModules().subscribe((modules: any[]) => {
+    this.dictService.getModules().subscribe((modules: any[]) => {
       this.modules = modules;
       this.modules.forEach((module: any) => {
         module.units.forEach((unit: any) => {
