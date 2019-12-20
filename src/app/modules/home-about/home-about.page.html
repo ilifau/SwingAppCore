@@ -19,6 +19,9 @@
 
     <p [innerHTML]="texts.aboutSwingProject"></p>
 
+    <p *ngIf="media.homeWelcome" class="ion-text-center">
+      <img src="content/{{media.aboutFundedEuLogo}}" />
+    </p>
 
     <ion-list>
       <ion-item-divider></ion-item-divider>
