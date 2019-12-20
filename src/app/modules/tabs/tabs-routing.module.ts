@@ -24,8 +24,12 @@ const routes: Routes = [
             path: 'imprint',
             loadChildren: () =>
                 import('../home-imprint/home-imprint.module').then(m => m.HomeImprintPageModule)
+          },
+          {
+            path: 'privacy',
+            loadChildren: () =>
+                import('../home-privacy/home-privacy.module').then(m => m.HomePrivacyPageModule)
           }
-
         ]
       },
       {

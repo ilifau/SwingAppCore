@@ -1,0 +1,25 @@
+<ion-header>
+  <section>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/home" [text]="texts.commonBack"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </section>
+</ion-header>
+
+<ion-content>
+  <section>
+    <h2 [innerHTML]="texts.privacyStatementHead"></h2>
+    <p [innerHTML]="texts.privacyStatementText"></p>
+
+    <h2 [innerHTML]="texts.privacyDataHead"></h2>
+    <p [innerHTML]="texts.privacyDataText"></p>
+
+  <p class="ion-text-center">
+    <ion-button fill="clear" href="{{texts.privacyLinkEditor}}">{{texts.privacyLinkEditorText}}</ion-button>
+  </p>
+
+  </section>
+
+</ion-content>
