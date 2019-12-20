@@ -15,5 +15,19 @@
     <ion-button fill="clear" routerLink="/tabs/additional/about" [innerHTML]="texts.addiHeadSignLanguage"></ion-button>
   </p>
 
+
+  <div class="ion-padding-horizontal">
+
+    <h2 [innerHTML]="texts.addiTrainingModules"></h2>
+    <p [innerHTML]="texts.addiTrainingStructure"></p>
+  </div>
+
+  <ion-list>
+      <ion-item  *ngFor="let module of modules">
+        <ion-icon slot="start" name="folder-open"></ion-icon>
+        <ion-label class="ion-text-wrap">{{module.name}}</ion-label>
+      </ion-item>
+  </ion-list>
+
 </section>
 </ion-content>
