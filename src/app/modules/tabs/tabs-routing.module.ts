@@ -60,6 +60,10 @@ const routes: Routes = [
           {
             path: 'about',
             loadChildren: () => import('../additional-about/additional-about.module').then( m => m.AdditionalAboutPageModule)
+          },
+          {
+            path: 'module/:moduleId',
+            loadChildren: () => import('../additional-module/additional-module.module').then( m => m.AdditionalModulePageModule)
           }
         ]
       },

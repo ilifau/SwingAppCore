@@ -182,14 +182,23 @@ export class DictionaryService {
     );
   }
 
-  getWord(id: any) {
+  getModule(id: any) {
     return this.load().pipe(
         map((data: any) => {
-          const word =  data.words.find(
-              (s: any) => s.id == id)
-          return word;
+          return data.modules.find(
+              (s: any) => s.id == id);
         })
     );
   }
+
+  getWord(id: any) {
+    return this.load().pipe(
+        map((data: any) => {
+          return data.words.find(
+              (s: any) => s.id == id);
+        })
+    );
+  }
+
 
 }

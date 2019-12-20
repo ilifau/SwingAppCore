@@ -1,0 +1,45 @@
+<ion-header>
+  <section>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/additional" [text]="texts.commonBack"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </section>
+</ion-header>
+
+<ion-content>
+  <section>
+
+    <div class="ion-padding-horizontal">
+      <h1>{{module.name}}</h1>
+    </div>
+
+    <p *ngIf="module.videoName">
+      <video src="content/{{module.videoName}}" poster="content/{{module.videoNameStart}}" controls></video>
+    </p>
+
+    <div *ngIf="module.description" class="ion-padding-horizontal">
+      <p>{{module.description}}</p>
+    </div>
+
+    <p *ngIf="module.videoDesc">
+      <video src="content/{{module.videoDesc}}" poster="content/{{module.videoDescStart}}" controls></video>
+    </p>
+
+    <div class="ion-padding-horizontal">
+      <h2>{{texts.addiTrainingUnits}}</h2>
+    </div>
+
+    <ion-list>
+      <ion-item  *ngFor="let unit of module.units" routerLink="/tabs/additional/unit/{{unit.id}}">
+        <ion-icon slot="start" name="arrow-dropright"></ion-icon>
+        <ion-label class="ion-text-wrap">
+          <h2>{{unit.name}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </section>
+
+</ion-content>
