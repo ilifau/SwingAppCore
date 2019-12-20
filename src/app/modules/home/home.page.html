@@ -11,12 +11,11 @@
 <ion-content padding>
 <section>
 
-  <div class="ion-text-center">
-    <img class="home-logo" src="assets/images/logo-swing.png" alt="{{texts.aboutSwingLong}}" />
-  </div>
+  <p class="ion-text-center">
+    <img src="assets/images/logo-swing.png" alt="{{texts.aboutSwingLong}}" />
+  </p>
 
-  <div class="home-welcome ion-text-center" [innerHTML]="texts.homeWelcome">
-  </div>
+  <p class="ion-text-center" [innerHTML]="texts.homeWelcome"></p>
 
   <ion-list>
     <ion-item-divider></ion-item-divider>
@@ -44,11 +43,11 @@
 
   </ion-list>
 
-  <div class="home-buttons ion-text-center">
-    <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkAbout}}</ion-button>
+  <p class="ion-text-center">
+    <ion-button fill="clear" routerLink="/tabs/home/about">{{texts.homeLinkAbout}}</ion-button>
     <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkImprint}}</ion-button>
     <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkPrivacy}}</ion-button>
-  </div>
+  </p>
 
 </section>
 </ion-content>

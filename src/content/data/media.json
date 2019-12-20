@@ -1,14 +1,8 @@
 {
-    "aboutFundedEuLogo": {
-        "standard": "pictures\/medium1686.png",
-        "preview": ""
-    },
-    "addiSignLanguage": {
-        "standard": "videos\/medium1685.mp4",
-        "preview": "videos\/medium1685_start.jpg"
-    },
-    "homeWelcome": {
-        "standard": "videos\/medium1684.mp4",
-        "preview": "videos\/medium1684_start.jpg"
-    }
+    "aboutFundedEuLogo": "pictures\/medium1686.png",
+    "aboutFundedEuLogoStart": "",
+    "addiSignLanguage": "videos\/medium1685.mp4",
+    "addiSignLanguageStart": "videos\/medium1685_start.jpg",
+    "homeWelcome": "videos\/medium1684.mp4",
+    "homeWelcomeStart": "videos\/medium1684_start.jpg"
 }

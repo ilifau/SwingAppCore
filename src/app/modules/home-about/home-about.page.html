@@ -1,0 +1,79 @@
+<ion-header>
+  <section>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/home" [text]="texts.commonBack"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </section>
+</ion-header>
+
+<ion-content>
+  <section>
+
+    <p *ngIf="media.homeWelcome">
+      <video src="content/{{media.homeWelcome}}" poster="content/{{media.homeWelcomeStart}}" controls></video>
+    </p>
+
+    <p class="ion-text-center"><ion-button fill="clear" href="{{texts.aboutSwingProjectLink}}">{{texts.aboutSwingLong}}</ion-button></p>
+
+    <p [innerHTML]="texts.aboutSwingProject"></p>
+
+
+    <ion-list>
+      <ion-item-divider></ion-item-divider>
+
+      <ion-item href="{{texts.aboutPartnerFedersidLink}}">
+        <ion-thumbnail slot="start">
+          <img src="assets/images/partner-federsid-square.jpg" />
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="texts.aboutPartnerFedersid"></h2>
+          <h3 [innerHTML]="texts.aboutPartnerFedersidLong"></h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item href="{{texts.aboutPartnerCetemLink}}">
+        <ion-thumbnail slot="start">
+          <img src="assets/images/partner-cetem-square.jpg" />
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="texts.aboutPartnerCetem"></h2>
+          <h3 [innerHTML]="texts.aboutPartnerCetemLong"></h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item href="{{texts.aboutPartnerIliLink}}">
+        <ion-thumbnail slot="start">
+          <img src="assets/images/partner-ili-square.png" />
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="texts.aboutPartnerIli"></h2>
+          <h3 [innerHTML]="texts.aboutPartnerIliLong"></h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item href="{{texts.aboutPartnerCeipesLink}}">
+        <ion-thumbnail slot="start">
+          <img src="assets/images/partner-ceipes-square.png" />
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="texts.aboutPartnerCeipes"></h2>
+          <h3 [innerHTML]="texts.aboutPartnerCeipesLong"></h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item href="{{texts.aboutPartnerMunkaLink}}">
+        <ion-thumbnail slot="start">
+          <img src="assets/images/partner-munka-square.jpg" />
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="texts.aboutPartnerMunka"></h2>
+          <h3 [innerHTML]="texts.aboutPartnerMunkaLong"></h3>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+  </section>
+</ion-content>

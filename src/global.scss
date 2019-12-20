@@ -26,14 +26,17 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
-
 /* SWING Styles */
 
+// a section is used as parent for all elements in ion-header and ion-content
+// it limits the content width to the with of the videos and centers the content on lage displays
 section {
-  // the videos have 720px width
-  // centered content (Images) should center below the videos
   max-width:720px;
   margin: auto;
+}
+
+ion-button {
+  font-weight: bold;
 }
 
 video {
