@@ -64,6 +64,10 @@ const routes: Routes = [
           {
             path: 'module/:moduleId',
             loadChildren: () => import('../additional-module/additional-module.module').then( m => m.AdditionalModulePageModule)
+          },
+          {
+            path: 'unit/:unitId',
+            loadChildren: () => import('../additional-unit/additional-unit.module').then( m => m.AdditionalUnitPageModule)
           }
         ]
       },

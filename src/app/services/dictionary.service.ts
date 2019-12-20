@@ -158,18 +158,11 @@ export class DictionaryService {
     );
   }
 
-  getWords() {
+  getWord(id: any) {
     return this.load().pipe(
         map((data: any) => {
-          return data.modules.sort();
-        })
-    );
-  }
-
-  getUnits() {
-    return this.load().pipe(
-        map((data: any) => {
-          return data.units.sort();
+          return data.words.find(
+              (s: any) => s.id == id);
         })
     );
   }
@@ -191,14 +184,13 @@ export class DictionaryService {
     );
   }
 
-  getWord(id: any) {
+  getUnit(id: any) {
     return this.load().pipe(
         map((data: any) => {
-          return data.words.find(
+          return data.units.find(
               (s: any) => s.id == id);
         })
     );
   }
-
 
 }
