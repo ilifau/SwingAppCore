@@ -19,7 +19,13 @@ const routes: Routes = [
             path: 'about',
             loadChildren: () =>
                 import('../home-about/home-about.module').then(m => m.HomeAboutPageModule)
+          },
+          {
+            path: 'imprint',
+            loadChildren: () =>
+                import('../home-imprint/home-imprint.module').then(m => m.HomeImprintPageModule)
           }
+
         ]
       },
       {
