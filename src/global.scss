@@ -29,14 +29,11 @@
 
 /* SWING Styles */
 
-ion-content {
-
-}
-
-.ion-text-center {
+section {
   // the videos have 720px width
   // centered content (Images) should center below the videos
   max-width:720px;
+  margin: auto;
 }
 
 video {

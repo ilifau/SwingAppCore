@@ -1,12 +1,15 @@
 <ion-header>
+  <section>
   <ion-toolbar>
     <ion-title>
-      {{texts.headHome}}
-    </ion-title>
+        {{texts.headHome}}
+      </ion-title>
   </ion-toolbar>
+  </section>
 </ion-header>
 
 <ion-content padding>
+<section>
 
   <div class="ion-text-center">
     <img class="home-logo" src="assets/images/logo-swing.png" alt="{{texts.aboutSwingLong}}" />
@@ -18,21 +21,21 @@
   <ion-list>
     <ion-item-divider></ion-item-divider>
 
-    <ion-item>
+    <ion-item routerLink="/tabs/dictionary">
       <ion-thumbnail slot="start">
         <img src="assets/images/icon-dictionary.svg" />
       </ion-thumbnail>
       <ion-label class="ion-text-wrap">{{texts.homeItemDictionary}}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item routerLink="/tabs/training">
       <ion-thumbnail slot="start">
         <img src="assets/images/icon-training.svg" />
       </ion-thumbnail>
       <ion-label class="ion-text-wrap">{{texts.homeItemTraining}}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item routerLink="/tabs/home">
       <ion-thumbnail slot="start">
         <img src="assets/images/icon-filter.svg" />
       </ion-thumbnail>
@@ -40,4 +43,12 @@
     </ion-item>
 
   </ion-list>
+
+  <div class="home-buttons ion-text-center">
+    <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkAbout}}</ion-button>
+    <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkImprint}}</ion-button>
+    <ion-button fill="clear" routerLink="/tabs/home">{{texts.homeLinkPrivacy}}</ion-button>
+  </div>
+
+</section>
 </ion-content>

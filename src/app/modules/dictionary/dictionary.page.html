@@ -1,51 +1,56 @@
 <ion-header>
-  <ion-toolbar>
+  <section>
+    <ion-toolbar>
 
-    <ion-title>{{ texts.headDictionary }}</ion-title>
+      <ion-title>{{ texts.headDictionary }}</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="presentFilter()">
-        <span *ngIf="ios">{{texts.commonFilter}}</span>
-        <span *ngIf="!ios">
+      <ion-buttons slot="end">
+        <ion-button (click)="presentFilter()">
+          <span *ngIf="ios">{{texts.commonFilter}}</span>
+          <span *ngIf="!ios">
           <ion-icon slot="icon-only" name="menu"></ion-icon>
         </span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
 
-  <ion-toolbar>
-    <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateWords()" placeholder="{{texts.dictSearch}}"></ion-searchbar>
-  </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateWords()" placeholder="{{texts.dictSearch}}"></ion-searchbar>
+    </ion-toolbar>
+  </section>
 </ion-header>
 
 
 <ion-content>
-  <ion-list [hidden]="shownGroups === 0">
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.letter}}
-        </ion-label>
-      </ion-item-divider>
-
-      <ion-item-sliding *ngFor="let word of group.words" #slidingItem [hidden]="word.hide">
-        <ion-item routerLink="/tabs/dictionary/word/{{word.id}}">
-
-          <ion-thumbnail slot="start">
-            <img src="content/{{word.img1}}" />
-          </ion-thumbnail>
-
+  <section>
+    <ion-list [hidden]="shownGroups === 0">
+      <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
+        <ion-item-divider sticky>
           <ion-label>
-            <h3>{{word.name}}</h3>
+            {{group.letter}}
           </ion-label>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list>
+        </ion-item-divider>
+
+        <ion-item-sliding *ngFor="let word of group.words" #slidingItem [hidden]="word.hide">
+          <ion-item routerLink="/tabs/dictionary/word/{{word.id}}">
+
+            <ion-thumbnail slot="start">
+              <img src="content/{{word.img1}}" />
+            </ion-thumbnail>
+
+            <ion-label>
+              <h3>{{word.name}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-item-group>
+    </ion-list>
 
 
-  <ion-list-header [hidden]="shownGroups > 0">
-    {{texts.dictNotFound}}
-  </ion-list-header>
+    <ion-list-header [hidden]="shownGroups > 0">
+      {{texts.dictNotFound}}
+    </ion-list-header>
+  </section>
+
 </ion-content>
 
