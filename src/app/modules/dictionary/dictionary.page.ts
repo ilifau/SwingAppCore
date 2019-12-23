@@ -18,7 +18,6 @@ export class DictionaryPage implements OnInit {
 
   ios: boolean;
   queryText = '';
-  excludedUnitIds: any = [];
   shownGroups: number;
   groups: any = [];
   texts: any = {};
@@ -47,7 +46,7 @@ export class DictionaryPage implements OnInit {
       this.wordList.closeSlidingItems();
     }
 
-    this.dictService.getDictionary(this.queryText, this.excludedUnitIds).subscribe((data: Array<Object>) => {
+    this.dictService.getDictionary(this.queryText).subscribe((data: Array<Object>) => {
         this.groups = data;
         this.shownGroups = data.length;
     });
@@ -56,13 +55,12 @@ export class DictionaryPage implements OnInit {
   async presentFilter() {
     const modal = await this.modalCtrl.create({
       component: FilterPage,
-      componentProps: { excludedUnitIds: this.excludedUnitIds }
+      componentProps: { }
     });
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
     if (data) {
-      this.excludedUnitIds = data;
       this.updateWords();
     }
   }

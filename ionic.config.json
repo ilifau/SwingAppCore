@@ -1,5 +1,7 @@
 {
   "name": "swingApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

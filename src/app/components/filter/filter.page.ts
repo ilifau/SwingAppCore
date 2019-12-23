@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { Config, ModalController, NavParams } from '@ionic/angular';
+import { Config, ModalController} from '@ionic/angular';
 
 import { TextService } from '../../services/text.service';
 import { DictionaryService } from '../../services/dictionary.service';
@@ -21,8 +21,7 @@ export class FilterPage implements OnInit {
       public textService: TextService,
       public dictService: DictionaryService,
       private config: Config,
-      public modalCtrl: ModalController,
-      public navParams: NavParams
+      public modalCtrl: ModalController
   ) { }
 
   ionViewWillEnter() {
@@ -37,14 +36,10 @@ export class FilterPage implements OnInit {
       this.texts = data;
     });
 
-    // passed in array of unit ids that should be excluded (unchecked)
-    const excludedUnitIds = this.navParams.get('excludedUnitIds');
-
-    this.dictService.getModules().subscribe((modules: any[]) => {
+    this.dictService.getFilter().subscribe((modules: any[]) => {
       this.modules = modules;
       this.modules.forEach((module: any) => {
         module.units.forEach((unit: any) => {
-          unit.isChecked = (excludedUnitIds.indexOf(unit.id) === -1);
           this.units.push(unit);
         });
       });
@@ -59,9 +54,10 @@ export class FilterPage implements OnInit {
   }
 
   applyFilters() {
-    // Pass back a new array of unit ids to exclude
     const excludedUnitIds = this.units.filter(c => !c.isChecked).map(c => c.id);
-    this.dismiss(excludedUnitIds);
+    this.dictService.setExcludedUnitIds(excludedUnitIds);
+    // Pass back a value to eventually trigger an update
+    this.dismiss(true);
   }
 
   dismiss(data?: any) {

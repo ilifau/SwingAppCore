@@ -1,17 +1,50 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { of } from 'rxjs';
+import { from } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DictionaryService {
-  data: any;
 
-  constructor(public http: HttpClient) {}
+  EXCLUDED_UNIT_IDS = 'excludedUnitIds';
+
+  data: any;
+  excludedUnitIds: any;
+
+  constructor(
+      public http: HttpClient,
+      public storage: Storage
+  ) {
+  }
 
   load(): any {
+    return forkJoin({
+      excludedUnitIds: this.loadExcludedUnitIds(),
+      data: this.loadData(),
+
+    })
+  }
+
+  loadExcludedUnitIds(): any {
+    if (this.excludedUnitIds) {
+      return of(this.excludedUnitIds);
+    } else {
+      // load the filter as early as possible
+      return from(this.storage.get(this.EXCLUDED_UNIT_IDS))
+          .pipe(map((data: any) => {
+            this.excludedUnitIds = data;
+            return this.excludedUnitIds;
+          }));
+    }
+  }
+
+
+  loadData(): any {
     if (this.data) {
       return of(this.data);
     } else {
@@ -20,6 +53,8 @@ export class DictionaryService {
           .pipe(map(this.processData, this));
     }
   }
+
+
 
   /**
    * Process the dictionary data one they are loaded
@@ -91,6 +126,12 @@ export class DictionaryService {
     return this.data;
   }
 
+  /**
+   * Set the hidden/shown status of a word by query and excluded units
+   * @param word
+   * @param queryWords
+   * @param excludedUnitIds
+   */
   filterWord(
       word: any,
       queryWords: string[],
@@ -126,25 +167,23 @@ export class DictionaryService {
   /**
    * Get an alphabetically grouped list of words
    * @param queryText
-   * @param excludedUnitIds
    */
   getDictionary(
-      queryText = '',
-      excludedUnitIds: any[] = [],
+      queryText = ''
   ) {
     return this.load().pipe(
-        map((data: any) => {
+        map((joined: any) => {
 
           queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
           const queryWords = queryText.split(' ').filter(w => !!w.trim().length);
 
-          data.groups.forEach((group: any) => {
+          this.data.groups.forEach((group: any) => {
             group.hide = true;
 
             group.words.forEach((word: any) => {
 
               // check if this word should show or not
-              this.filterWord(word, queryWords, excludedUnitIds);
+              this.filterWord(word, queryWords, this.excludedUnitIds);
 
               // if this word is not hidden then this group should show
               if (!word.hide) {
@@ -153,13 +192,29 @@ export class DictionaryService {
             });
           });
 
-          return data.groups;
+          return this.data.groups;
         })
     );
   }
 
-  getWord(id: any) {
+  /**
+   * Get a list of modules with filter flags in units
+   */
+  getFilter() {
     return this.load().pipe(
+        map((joined: any) => {
+
+          this.data.units.forEach((unit: any) => {
+            unit.isChecked = (this.excludedUnitIds.indexOf(unit.id) === -1);
+          });
+          return this.data.modules;
+        })
+    );
+  }
+
+
+  getWord(id: any) {
+    return this.loadData().pipe(
         map((data: any) => {
           return data.words.find(
               (s: any) => s.id == id);
@@ -168,7 +223,7 @@ export class DictionaryService {
   }
 
   getModules() {
-    return this.load().pipe(
+    return this.loadData().pipe(
         map((data: any) => {
           return data.modules.sort();
         })
@@ -176,7 +231,7 @@ export class DictionaryService {
   }
 
   getModule(id: any) {
-    return this.load().pipe(
+    return this.loadData().pipe(
         map((data: any) => {
           return data.modules.find(
               (s: any) => s.id == id);
@@ -185,12 +240,35 @@ export class DictionaryService {
   }
 
   getUnit(id: any) {
-    return this.load().pipe(
+    return this.loadData().pipe(
         map((data: any) => {
           return data.units.find(
               (s: any) => s.id == id);
         })
     );
+  }
+
+
+  /**
+   * Get the ids of excluded units
+   */
+  getExcludedUnitIds(): any[] {
+    return this.loadExcludedUnitIds().pipe(
+        map((data: any) => {
+          return data;
+        })
+    );
+  }
+
+
+  /**
+   * Store and set the ids of excluded units
+   * @param ids
+   */
+  setExcludedUnitIds(ids: any) {
+    this.excludedUnitIds = ids;
+    this.storage.set(this.EXCLUDED_UNIT_IDS, ids).then((value) => {
+    });
   }
 
 }
