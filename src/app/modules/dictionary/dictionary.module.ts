@@ -5,21 +5,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DictionaryPage } from './dictionary.page';
 
-import { FilterPage } from '../../components/filter/filter.page';
+import { FilterPageModule } from '../filter/filter.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
+    FilterPageModule,
     RouterModule.forChild([{ path: '', component: DictionaryPage }])
   ],
   declarations: [
-      DictionaryPage,
-      FilterPage
-  ],
-  entryComponents: [
-      FilterPage
+      DictionaryPage
   ]
 })
 export class DictionaryPageModule {}

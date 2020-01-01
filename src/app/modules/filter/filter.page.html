@@ -1,0 +1,36 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="selectAll(true)">{{texts.commonSelectAll}}</ion-button>
+      <ion-button (click)="selectAll(false)">{{texts.commonUnselectAll}}</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()" strong>
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list [lines]="ios ? 'inset' : 'full'">
+    <ion-item-group *ngFor="let module of modules">
+      <ion-item-divider sticky>
+        <ion-label>
+          {{module.name}}
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="let unit of module.units" [attr.unit]="unit.id">
+        <ion-item>
+          <ion-label>{{unit.name}}</ion-label>
+          <ion-checkbox [(ngModel)]="unit.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+
+
+</ion-content>

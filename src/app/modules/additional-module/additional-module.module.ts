@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule} from "@angular/router";
 import { IonicModule } from '@ionic/angular';
-
-import { AdditionalModulePageRoutingModule } from './additional-module-routing.module';
-
 import { AdditionalModulePage } from './additional-module.page';
 
 @NgModule({
@@ -13,7 +10,7 @@ import { AdditionalModulePage } from './additional-module.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AdditionalModulePageRoutingModule
+    RouterModule.forChild([{ path: '', component:AdditionalModulePage }])
   ],
   declarations: [AdditionalModulePage]
 })

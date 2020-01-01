@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-
-import { HomeAboutPageRoutingModule } from './home-about-routing.module';
-
 import { HomeAboutPage } from './home-about.page';
 
 @NgModule({
@@ -13,7 +10,7 @@ import { HomeAboutPage } from './home-about.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeAboutPageRoutingModule
+    RouterModule.forChild([{ path: '', component: HomeAboutPage }])
   ],
   declarations: [HomeAboutPage]
 })

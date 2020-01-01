@@ -4,7 +4,7 @@ import { IonList, ModalController, Config } from '@ionic/angular';
 
 import { TextService } from '../../services/text.service';
 import { DictionaryService } from '../../services/dictionary.service';
-import { FilterPage } from '../../components/filter/filter.page';
+import { FilterPage } from '../filter/filter.page';
 
 @Component({
   selector: 'app-dictionary',

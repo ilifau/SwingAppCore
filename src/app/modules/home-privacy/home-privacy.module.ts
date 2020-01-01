@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-
-import { HomePrivacyPageRoutingModule } from './home-privacy-routing.module';
-
 import { HomePrivacyPage } from './home-privacy.page';
 
 @NgModule({
@@ -13,7 +10,7 @@ import { HomePrivacyPage } from './home-privacy.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePrivacyPageRoutingModule
+    RouterModule.forChild([{ path: '', component: HomePrivacyPage }])
   ],
   declarations: [HomePrivacyPage]
 })

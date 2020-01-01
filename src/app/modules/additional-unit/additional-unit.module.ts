@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule} from "@angular/router";
 import { IonicModule } from '@ionic/angular';
-
-import { AdditionalUnitPageRoutingModule } from './additional-unit-routing.module';
-
 import { AdditionalUnitPage } from './additional-unit.page';
 
 @NgModule({
@@ -13,7 +10,7 @@ import { AdditionalUnitPage } from './additional-unit.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AdditionalUnitPageRoutingModule
+    RouterModule.forChild([{ path: '', component:AdditionalUnitPage }])
   ],
   declarations: [AdditionalUnitPage]
 })
