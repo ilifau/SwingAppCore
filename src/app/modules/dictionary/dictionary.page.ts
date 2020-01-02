@@ -41,11 +41,6 @@ export class DictionaryPage implements OnInit {
   }
 
   updateWords() {
-    // Close any open sliding items when the schedule updates
-    if (this.wordList) {
-      this.wordList.closeSlidingItems();
-    }
-
     this.dictService.getDictionary(this.queryText).subscribe((data: Array<Object>) => {
         this.groups = data;
         this.shownGroups = data.length;

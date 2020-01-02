@@ -4,6 +4,16 @@
     <ion-title>
         {{texts.headHome}}
       </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="presentFilter()">
+        <span *ngIf="ios">{{texts.commonFilter}}</span>
+        <span *ngIf="!ios">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </span>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
   </section>
 </ion-header>
@@ -34,7 +44,7 @@
       <ion-label class="ion-text-wrap">{{texts.homeItemTraining}}</ion-label>
     </ion-item>
 
-    <ion-item routerLink="/tabs/home">
+    <ion-item routerLink="/tabs/home" (click)="presentFilter()">
       <ion-thumbnail slot="start">
         <img src="assets/images/icon-filter.svg" />
       </ion-thumbnail>
