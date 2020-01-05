@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class DictionaryService {
 
-  EXCLUDED_UNIT_IDS = 'excludedUnitIds';
+  KEY_EXCLUDED_UNIT_IDS = 'excludedUnitIds';
 
   data: any;
   excludedUnitIds: any;
@@ -22,6 +22,10 @@ export class DictionaryService {
   ) {
   }
 
+
+  /**
+   * Load all data from json and storage
+   */
   load(): any {
     return forkJoin({
       excludedUnitIds: this.loadExcludedUnitIds(),
@@ -30,12 +34,15 @@ export class DictionaryService {
     })
   }
 
+  /**
+   * Load the list of excluded unit ids from the storage
+   */
   loadExcludedUnitIds(): any {
     if (this.excludedUnitIds) {
       return of(this.excludedUnitIds);
     } else {
       // load the filter as early as possible
-      return from(this.storage.get(this.EXCLUDED_UNIT_IDS))
+      return from(this.storage.get(this.KEY_EXCLUDED_UNIT_IDS))
           .pipe(map((data: any) => {
             this.excludedUnitIds = data;
             return this.excludedUnitIds;
@@ -44,6 +51,9 @@ export class DictionaryService {
   }
 
 
+  /**
+   * Load all words, training module and training unit definitions from a json file
+   */
   loadData(): any {
     if (this.data) {
       return of(this.data);
@@ -57,7 +67,7 @@ export class DictionaryService {
 
 
   /**
-   * Process the dictionary data one they are loaded
+   * Process the dictionary data once they are loaded
    * @param data
    */
   processData(data: any) {
@@ -139,7 +149,7 @@ export class DictionaryService {
   ) {
     let matchesQueryText = false;
     if (queryWords.length) {
-      // of any query word is in the words name than it passes the query test
+      // if any query word is in the words name than it passes the query test
       queryWords.forEach((queryWord: string) => {
         if (word.name.toLowerCase().indexOf(queryWord) > -1) {
           matchesQueryText = true;
@@ -150,8 +160,7 @@ export class DictionaryService {
       matchesQueryText = true;
     }
 
-    // if any of the words units are not in the
-    // exclude tracks then this session passes the track test
+    // if any of the words units are not in the excluded list
     let matchesUnits = false;
     word.units.forEach((id: any) => {
       if (excludedUnitIds.indexOf(id) === -1) {
@@ -212,7 +221,10 @@ export class DictionaryService {
     );
   }
 
-
+  /**
+   * Get the data of single word
+   * @param id
+   */
   getWord(id: any) {
     return this.loadData().pipe(
         map((data: any) => {
@@ -222,6 +234,9 @@ export class DictionaryService {
     );
   }
 
+  /**
+   * Get a list of training modules
+   */
   getModules() {
     return this.loadData().pipe(
         map((data: any) => {
@@ -230,6 +245,10 @@ export class DictionaryService {
     );
   }
 
+  /**
+   * Get the data of a training module
+   * @param id
+   */
   getModule(id: any) {
     return this.loadData().pipe(
         map((data: any) => {
@@ -239,6 +258,10 @@ export class DictionaryService {
     );
   }
 
+  /**
+   * Get the data of a training unit
+   * @param id
+   */
   getUnit(id: any) {
     return this.loadData().pipe(
         map((data: any) => {
@@ -250,25 +273,38 @@ export class DictionaryService {
 
 
   /**
-   * Get the ids of excluded units
-   */
-  getExcludedUnitIds(): any[] {
-    return this.loadExcludedUnitIds().pipe(
-        map((data: any) => {
-          return data;
-        })
-    );
-  }
-
-
-  /**
    * Store and set the ids of excluded units
    * @param ids
    */
   setExcludedUnitIds(ids: any) {
     this.excludedUnitIds = ids;
-    this.storage.set(this.EXCLUDED_UNIT_IDS, ids).then((value) => {
+    this.storage.set(this.KEY_EXCLUDED_UNIT_IDS, ids).then((value) => {
     });
   }
 
+
+  /**
+   * Get the current list of word ids that match the units filter
+   */
+  getFilteredWordIds() {
+    return this.load().pipe(
+        map((data: any) => {
+          let filteredWordIds = [];
+
+          this.data.words.forEach((word: any) => {
+            // if any of the words units are not in the excluied list
+            let matchesUnits = false;
+            word.units.forEach((id: any) => {
+              if (this.excludedUnitIds.indexOf(id) === -1) {
+                matchesUnits = true;
+              }
+            });
+            if (matchesUnits) {
+              filteredWordIds.push(word.id);
+            }
+          });
+          return filteredWordIds;
+        })
+    );
+  }
 }
