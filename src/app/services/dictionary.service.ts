@@ -30,7 +30,6 @@ export class DictionaryService {
     return forkJoin({
       excludedUnitIds: this.loadExcludedUnitIds(),
       data: this.loadData(),
-
     })
   }
 
@@ -301,7 +300,7 @@ export class DictionaryService {
             });
             if (matchesUnits) {
               filteredWordIds.push(word.id);
-            }
+             }
           });
           return filteredWordIds;
         })
