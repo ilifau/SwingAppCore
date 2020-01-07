@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { DictionaryService } from './dictionary.service';
 import { MemoItem } from '../interfaces/memo-item';
 import { MemoStatus } from '../interfaces/memo-status';
+import { MemoOverview } from '../interfaces/memo-overview';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +18,9 @@ export class TrainingService {
   private status: MemoStatus;
   private wordIds: Array<string>;
 
-  KEY_TRAINING_STATUS = 'trainingStatus';
-  MAX_NEW_ITEMS_PER_DAY = 10;
-  MAX_REVIEW_ITEMS_PER_DAY = 50;
+  private KEY_TRAINING_STATUS = 'trainingStatus';
+  private MAX_NEW_ITEMS_PER_DAY = 10;
+  private MAX_REVIEW_ITEMS_PER_DAY = 50;
 
   constructor(
       public storage: Storage,
@@ -42,21 +44,128 @@ export class TrainingService {
     this.storage.set(this.KEY_TRAINING_STATUS, this.status).then((value) => {})
   }
 
-
   /**
    * Get a statistical overview
    */
   public getOverview(): any {
-    return this.load().pipe((data: any) => {
-      return {
-        total: this.wordIds.length,
-        todayNew: this.status.newIds.length,
-        todayReview: this.status.repeatIds.length,
-        todayRepeat: this.status.repeatIds.length
-      }
-    })
+    return this.load().pipe(
+        map((data: any) => {
+          return<MemoOverview> {
+            trainDay: this.status.trainDay,
+            totalCount: this.wordIds.length,
+            trainedCount: this.countTrainedItems(),
+            newCount: this.status.newIds.length,
+            reviewCount: this.status.repeatIds.length,
+            repeatCount: this.status.repeatIds.length
+          }
+        })
+    );
   }
 
+  /**
+   * Get the status data of a single item
+   * @param id
+   */
+  public getItem(id: string): any {
+    return this.load().pipe(
+        map((data: any) => {
+          return<MemoItem> this.status.items.find((item: MemoItem) => {
+            return item.id == id;
+          });
+        })
+    );
+  }
+
+  /**
+   * Get the id of the next item to learn
+   */
+  public nextItemId(): any {
+    return this.load().pipe(
+        map((data: any) => {
+          if (this.status.reviewIds.length > 0) {
+            return this.status.reviewIds[0];
+          }
+          else if (this.status.newIds.length > 0) {
+            return this.status.newIds[0];
+          }
+          else if (this.status.repeatIds.length > 0) {
+            return this.status.repeatIds[0];
+          }
+          else {
+            return '';
+          }
+        })
+    );
+  }
+
+
+
+  /**
+   * Increase the current day (for testing purposes
+   */
+  public shiftToday() {
+    let date = this.dayToDate(this.status.testDay);
+    date.setDate(date.getDate() + 1);
+    this.status.testDay = this.dayFromDate(date);
+    this.save();
+  }
+
+  /**
+   * Get the current day
+   * - returns the current day in production environment
+   * - returns the stored test day in developing environment
+   */
+  private getToday(): string {
+    if (environment.production) {
+      return this.dayFromDate(new Date());
+    }
+    else {
+      return this.status.testDay;
+    }
+  }
+
+
+  /**
+   * Get the number of already trained items
+   */
+  private countTrainedItems(): any {
+    let count = 0;
+    this.status.items.forEach((item: MemoItem) => {
+      if (item.views > 0 && this.wordIds.indexOf(item.id) >= 0) {
+        count++;
+      }
+    });
+    return count;
+  }
+
+  /**
+   * Get an initial status
+   */
+  private getInitialStatus(): MemoStatus {
+    return {
+      items: [],
+      testDay: this.dayFromDate(new Date()),
+      trainDay: '',
+      newIds: [],
+      reviewIds: [],
+      repeatIds: []
+    }
+  }
+
+  /**
+   * Get an initial item for an id
+   */
+  private getInitialItem(id: string): MemoItem {
+    return {
+      id: id,
+      views: 0,
+      lastDay: '',
+      lastScore: 0,
+      factor: 0,
+      interval: 0,
+      nextDay: ''
+    }
+  }
 
   /**
    * Load the training status
@@ -68,15 +177,8 @@ export class TrainingService {
       // load the status
       return from(this.storage.get(this.KEY_TRAINING_STATUS))
           .pipe(map((data: any) => {
-
             if (!data) {
-              this.status = {
-                items: [],
-                today: '1900-01-01',
-                newIds: [],
-                reviewIds: [],
-                repeatIds: []
-              }
+              this.status = this.getInitialStatus();
             }
             else {
               this.status = data;
@@ -100,6 +202,7 @@ export class TrainingService {
    * Prepare the training data
    */
   private prepareData() {
+    let changed = false;
 
     // add new items for new word ids in the filter
     this.wordIds.forEach((id: string) => {
@@ -107,25 +210,19 @@ export class TrainingService {
         return item.id == id;
       });
       if (index == -1) {
-        this.status.items.push( {
-          id: id,
-          views: 0,
-          lastDay: '',
-          lastScore: 0,
-          factor: 0,
-          interval: 0,
-          nextDay: ''
-        });
+        this.status.items.push(this.getInitialItem(id));
       }
+      changed = true;
     });
 
     // check current date and reset the working list on a new day
-    let today = this.dayFromDate(new Date());
-    if (this.status.today !== today) {
-      this.status.today = today;
+    this.status.testDay  = this.getToday();
+    if (this.status.trainDay !== this.status.testDay) {
+      this.status.trainDay = this.status.testDay;
       this.status.repeatIds = [];
       this.findReviewIds(this.MAX_REVIEW_ITEMS_PER_DAY);
       this.findNewIds(this.MAX_NEW_ITEMS_PER_DAY);
+      changed = true;
     }
 
     // check if filter has changed and replace new items for today
@@ -138,6 +235,7 @@ export class TrainingService {
     }
     if (removed > 0) {
       this.findNewIds(removed);
+      changed = true;
     }
 
     // check if filter has changed and replace items to review today
@@ -150,6 +248,13 @@ export class TrainingService {
     }
     if (removed > 0) {
       this.findReviewIds(removed);
+      changed = true;
+    }
+
+    // save the prepared status
+
+    if (changed) {
+      this.save();
     }
   }
 
