@@ -4,11 +4,14 @@ import { of } from 'rxjs';
 import { from } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { supermemo2 } from 'supermemo2';
 import { DictionaryService } from './dictionary.service';
 import { MemoItem } from '../interfaces/memo-item';
+import { MemoResult } from '../interfaces/memo-result';
 import { MemoStatus } from '../interfaces/memo-status';
 import { MemoOverview } from '../interfaces/memo-overview';
 import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +44,7 @@ export class TrainingService {
    * Save the training status
    */
   public save() {
-    this.storage.set(this.KEY_TRAINING_STATUS, this.status).then((value) => {})
+    return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
   }
 
   /**
@@ -79,7 +82,7 @@ export class TrainingService {
   /**
    * Get the id of the next item to learn
    */
-  public nextItemId(): any {
+  public getNextItemId(): any {
     return this.load().pipe(
         map((data: any) => {
           if (this.status.reviewIds.length > 0) {
@@ -98,30 +101,78 @@ export class TrainingService {
     );
   }
 
-
-
   /**
-   * Increase the current day (for testing purposes
+   * Save the training result for an item
+   * Apply the supermemo algorithm
+   * @param itemId
+   * @param quality
    */
-  public shiftToday() {
-    let date = this.dayToDate(this.status.testDay);
-    date.setDate(date.getDate() + 1);
-    this.status.testDay = this.dayFromDate(date);
-    this.save();
+  public setItemResult(itemId: string, quality: number) {
+
+    let item: MemoItem = this.status.items.find((item: MemoItem) => {
+      return item.id == itemId;
+    });
+
+    if (typeof item === 'undefined') {
+      this.removeItemId(this.status.newIds, itemId);
+      this.removeItemId(this.status.reviewIds, itemId);
+      this.removeItemId(this.status.repeatIds, itemId);
+      return this.save();
+    }
+
+    if (this.status.newIds.indexOf(itemId) > 0) {
+      this.removeItemId(this.status.newIds, itemId);
+      this.applySuperMemo2(item, quality);
+    }
+    else if (this.status.reviewIds.indexOf(itemId) > 0) {
+      this.removeItemId(this.status.reviewIds, itemId);
+      this.applySuperMemo2(item, quality);
+    }
+    else if (this.status.repeatIds.indexOf(itemId) > 0) {
+        this.removeItemId(this.status.repeatIds, itemId);   // remove from the beginning
+    }
+
+    if (quality < 4) {
+      this.status.repeatIds.push(itemId);                   // add to the end
+    }
+    return this.save();
   }
 
   /**
-   * Get the current day
-   * - returns the current day in production environment
-   * - returns the stored test day in developing environment
+   * Increase the current day (for testing purposes)
    */
-  private getToday(): string {
-    if (environment.production) {
-      return this.dayFromDate(new Date());
-    }
-    else {
-      return this.status.testDay;
-    }
+  public setNextDay() {
+    let date = this.dayToDate(this.status.testDay);
+    date.setDate(date.getDate() + 1);
+    this.status.testDay = this.dayFromDate(date);
+    return this.save();
+  }
+
+  /**
+   * Reset all training items and lists
+   */
+  public resetTrainingStatus() {
+    this.status = this.getInitialStatus();
+    return this.save();
+  }
+
+
+  /**
+   * Apply the supermemo 2 algorithm to an item
+   * @param item
+   * @param quality
+   */
+  private applySuperMemo2(item: MemoItem, quality: number) {
+    let result: MemoResult = supermemo2(quality, item.schedule, item.factor);
+
+    item.schedule = result.schedule;
+    item.factor = result.factor;
+    item.lastDay = this.getToday();
+    item.lastScore = quality;
+
+    let nextDate = this.dayToDate(item.lastDay);
+    nextDate.setDate(nextDate.getDate() + item.schedule);
+    item.nextDay = this.dayFromDate(nextDate);
   }
 
 
@@ -161,8 +212,8 @@ export class TrainingService {
       views: 0,
       lastDay: '',
       lastScore: 0,
-      factor: 0,
-      interval: 0,
+      factor: 2.5,
+      schedule: null, // this indicates supermemo2 that the item is not yet trained
       nextDay: ''
     }
   }
@@ -203,6 +254,7 @@ export class TrainingService {
    */
   private prepareData() {
     let changed = false;
+    let removed;
 
     // add new items for new word ids in the filter
     this.wordIds.forEach((id: string) => {
@@ -225,39 +277,51 @@ export class TrainingService {
       changed = true;
     }
 
-    // check if filter has changed and replace new items for today
-    let removed = 0;
-    for( let i = 0; i < this.status.newIds.length; i++){
-      if ( this.wordIds.indexOf(this.status.newIds[i]) < 0) {
-        this.status.newIds.splice(i, 1);
-        removed++;
-      }
-    }
+    // check if filter has changed and modify the lists for today
+    removed = this.removeMissingWordIds(this.status.newIds);
     if (removed > 0) {
       this.findNewIds(removed);
       changed = true;
     }
-
-    // check if filter has changed and replace items to review today
-    removed = 0;
-    for( let i = 0; i < this.status.reviewIds.length; i++){
-      if ( this.wordIds.indexOf(this.status.reviewIds[i]) < 0) {
-        this.status.reviewIds.splice(i, 1);
-        removed++;
-      }
-    }
+    removed = this.removeMissingWordIds(this.status.reviewIds);
     if (removed > 0) {
       this.findReviewIds(removed);
       changed = true;
     }
-
-    // save the prepared status
+    removed = this.removeMissingWordIds(this.status.repeatIds);
+    if (removed > 0) {
+      changed = true;
+    }
 
     if (changed) {
       this.save();
     }
   }
 
+  /**
+   * Remove missing words from a list
+   * @return number
+   */
+  private removeMissingWordIds(list: Array<string>) {
+    let removed = 0;
+    for( let i = 0; i < list.length; i++){
+      if ( this.wordIds.indexOf(list[i]) < 0) {
+        list.splice(i, 1);
+        removed++;
+      }
+    }
+    return removed;
+  }
+
+  /**
+   * Remove an item id from a list
+   */
+  private removeItemId(list: Array<string>, id: string) {
+    let i = list.indexOf(id);
+    if (i >= 0) {
+      list.splice(i, 1);
+    }
+  }
 
 
   /**
@@ -282,6 +346,7 @@ export class TrainingService {
     });
   }
 
+
   /**
    * Find items to review today
    * @param max
@@ -304,6 +369,21 @@ export class TrainingService {
   }
 
   /**
+   * Get the current day
+   * - returns the current day in production environment
+   * - returns the stored test day in developing environment
+   */
+  private getToday(): string {
+    if (environment.production) {
+      return this.dayFromDate(new Date());
+    }
+    else {
+      return this.status.testDay;
+    }
+  }
+
+
+  /**
    * get a day string like '2020-01-10' from a date object
    * @param date Date
    * @return string
@@ -315,6 +395,7 @@ export class TrainingService {
 
     return year + '-' + month + '-' + monthday;
   }
+
 
   /**
    * Get a date object from a day sting like '2020-01-10'
@@ -330,6 +411,7 @@ export class TrainingService {
 
     return new Date(year, month, monthday);
   }
+
 
   /**
    * Gat the interval between two days
