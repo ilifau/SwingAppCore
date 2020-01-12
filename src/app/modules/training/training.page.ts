@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IonList, ModalController} from '@ionic/angular';
+import {Config, IonList, ModalController} from '@ionic/angular';
 import { TextService } from '../../services/text.service';
 import {FilterPage} from "../filter/filter.page";
-import {DictionaryService} from "../../services/dictionary.service";
+import {TrainingService} from "../../services/training.service";
+import { MemoOverview } from '../../interfaces/memo-overview';
 
 @Component({
   selector: 'app-training',
@@ -11,21 +12,29 @@ import {DictionaryService} from "../../services/dictionary.service";
 })
 export class TrainingPage implements OnInit {
 
+  ios: boolean;
   texts: any = {};
+  overview: any = {};
 
   constructor(
+      public config: Config,
       public modalCtrl: ModalController,
       public textService: TextService,
-      public dictService: DictionaryService
+      public trainService: TrainingService
   ) {}
 
   ngOnInit() {
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
+
+    this.updateOverview();
   }
 
-  updateStatus() {
+  updateOverview() {
+    this.trainService.getOverview().subscribe((overview: MemoOverview) => {
+      this.overview = overview;
+    });
   }
 
 
@@ -38,7 +47,7 @@ export class TrainingPage implements OnInit {
 
     const { data } = await modal.onWillDismiss();
     if (data) {
-      this.updateStatus();
+      this.updateOverview();
     }
   }
 

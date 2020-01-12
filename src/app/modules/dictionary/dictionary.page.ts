@@ -32,12 +32,13 @@ export class DictionaryPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.ios = this.config.get('mode') === 'ios';
+
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
 
     this.updateWords();
-    this.ios = this.config.get('mode') === 'ios';
   }
 
   updateWords() {

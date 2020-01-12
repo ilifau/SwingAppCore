@@ -72,6 +72,10 @@
     "trainShowWord": "Benenne das Wort",
     "trainStartTraining": "Training starten",
     "trainUnknownWords": "nicht gewusst",
-    "trainUntrainedWords": "noch nicht trainiert",
-    "trainWellKnown": "gewusst"
+    "trainUntrainedWords": "Noch nicht trainiert",
+    "trainWellKnown": "gewusst",
+    "trainTrainedWords": "Bereits trainiert",
+    "trainTodayNew": "Neue W\u00f6rter",
+    "trainTodayReview": "Trainierte W\u00f6rter",
+    "trainTodayRepeat": "Zu wiederholen"
 }

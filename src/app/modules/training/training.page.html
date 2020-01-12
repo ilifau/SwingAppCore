@@ -20,6 +20,32 @@
 
 <ion-content padding>
   <section>
-    Coming soon
+    <ion-list [lines]="ios ? 'inset' : 'full'">
+      <ion-item>
+        <ion-label>{{texts.trainSelectedWords}}</ion-label>
+        <ion-note class="counter" slot="end">{{overview.totalCount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{texts.trainTrainedWords}}</ion-label>
+        <ion-note class="counter" slot="end" >{{overview.trainedCount}}</ion-note>
+      </ion-item>
+
+      <ion-item-divider sticky>
+        <ion-label>{{overview.trainDate}}</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{texts.trainTodayNew}}</ion-label>
+        <ion-note class="counter" slot="end">{{overview.newCount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{texts.trainTodayReview}}</ion-label>
+        <ion-note class="counter" slot="end">{{overview.reviewCount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{texts.trainTodayRepeat}}</ion-label>
+        <ion-note class="counter" slot="end">{{overview.repeatCount}}</ion-note>
+      </ion-item>
+
+    </ion-list>
   </section>
 </ion-content>

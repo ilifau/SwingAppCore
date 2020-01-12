@@ -12,6 +12,7 @@ import { MemoStatus } from '../interfaces/memo-status';
 import { MemoOverview } from '../interfaces/memo-overview';
 import { environment } from '../../environments/environment';
 
+declare function supermemo2(quality: number, lastSchedule: number, lastFactor: number): MemoResult;
 
 @Injectable({
   providedIn: 'root'
@@ -30,22 +31,6 @@ export class TrainingService {
       public dictService: DictionaryService,
   ) {}
 
-  /**
-   * Load training status and current words
-   */
-  public load(): any {
-    return forkJoin({
-      wordIds: this.loadWordIds(),
-      data: this.loadStatus(),
-    }).pipe(map(this.prepareData, this));
-  }
-
-  /**
-   * Save the training status
-   */
-  public save() {
-    return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
-  }
 
   /**
    * Get a statistical overview
@@ -54,9 +39,10 @@ export class TrainingService {
     return this.load().pipe(
         map((data: any) => {
           return<MemoOverview> {
-            trainDay: this.status.trainDay,
+            trainDate: this.dayToDate(this.status.trainDay).toLocaleDateString(),
             totalCount: this.wordIds.length,
             trainedCount: this.countTrainedItems(),
+            untrainedCount: this.wordIds.length - this.countTrainedItems(),
             newCount: this.status.newIds.length,
             reviewCount: this.status.repeatIds.length,
             repeatCount: this.status.repeatIds.length
@@ -216,6 +202,23 @@ export class TrainingService {
       schedule: null, // this indicates supermemo2 that the item is not yet trained
       nextDay: ''
     }
+  }
+
+  /**
+   * Load training status and current words
+   */
+  private load(): any {
+    return forkJoin({
+      wordIds: this.loadWordIds(),
+      data: this.loadStatus(),
+    }).pipe(map(this.prepareData, this));
+  }
+
+  /**
+   * Save the training status
+   */
+  private save() {
+    return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
   }
 
   /**
