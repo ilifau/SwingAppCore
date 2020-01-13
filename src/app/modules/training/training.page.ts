@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Config, IonList, ModalController} from '@ionic/angular';
+import {Config, ModalController} from '@ionic/angular';
 import { TextService } from '../../services/text.service';
 import {FilterPage} from "../filter/filter.page";
 import {TrainingResetPage} from "../training-reset/training-reset.page";
@@ -72,7 +72,7 @@ export class TrainingPage implements OnInit {
   }
 
   setNextDay() {
-    this.trainService.setNextDay().subscribe((data: any) => {
+    this.trainService.setNextDay().subscribe(() => {
       this.updateOverview();
     });
   }
@@ -80,10 +80,7 @@ export class TrainingPage implements OnInit {
   startTraining(mode: MemoMode) {
     this.trainService.getNextQuestion(mode).subscribe((data: any) => {
       if (data.itemId) {
-        this.router.navigate(['question/' + data.itemId +'/' + data.mode], { relativeTo: this.route });
-      }
-      else {
-
+        void this.router.navigate(['question/' + data.itemId +'/' + data.mode], { relativeTo: this.route });
       }
     });
   }

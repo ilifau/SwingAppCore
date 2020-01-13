@@ -62,7 +62,7 @@
     "privacyStatementHead": "Datenschutz",
     "privacyStatementText": "SWING verpflichtet sich zur Wahrung der Privatsph\u00e4re der Nutzer.<br \/><br \/>\nDie Politik zum \"Schutz nat\u00fcrlicher Personen bei der Verarbeitung personenbezogener Daten durch die Organe der Gemeinschaft\" basiert auf der Verordnung 45\/2001 \u00fcber die Verarbeitung personenbezogener Daten durch die Organe der EU des Europ\u00e4ischen Parlaments und des Rates vom 18. Dezember 2000.",
     "trainKnowWords": "gewusst",
-    "trainNotKnown": "nicht gewusst",
+    "trainNotKnown": "Nein",
     "trainShowWordAskSign": "Zeige die Geb\u00e4rde f\u00fcr das gefragte Wort.",
     "trainShowSignAskWord": "Bennene das Wort f\u00fcr die gezeigte Geb\u00e4rde.",
     "trainResetQuestion": "M\u00f6chten Sie den Trainingsstatus zur\u00fccksetzen? <br \/><br \/>\nAlle W\u00f6rter werden auf \"noch nicht trainiert\" gesetzt.",
@@ -73,9 +73,12 @@
     "trainStartTraining": "Training starten",
     "trainUnknownWords": "nicht gewusst",
     "trainUntrainedWords": "Noch nicht trainiert",
-    "trainWellKnown": "gewusst",
+    "trainWellKnown": "Ja",
     "trainTrainedWords": "Bereits trainiert",
     "trainTodayNew": "Neue W\u00f6rter",
     "trainTodayReview": "Trainierte W\u00f6rter",
-    "trainTodayRepeat": "Zu wiederholen"
+    "trainTodayRepeat": "Zu wiederholen",
+    "trainAskRemembered": "Korrekt erinnert?",
+    "trainNearlyKnown": "Beinahe"
+
 }

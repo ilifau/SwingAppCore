@@ -4,7 +4,6 @@ import {Config} from "@ionic/angular";
 import { MemoMode } from '../../interfaces/memo-mode';
 import {TextService} from "../../services/text.service";
 import {DictionaryService} from "../../services/dictionary.service";
-import {TrainingService} from "../../services/training.service";
 
 @Component({
   selector: 'app-training-question',
@@ -19,7 +18,7 @@ export class TrainingQuestionPage implements OnInit {
 
   itemId: string;
   mode: string;
-  showName: boolean = true;
+  showWord: boolean = true;
   showSign: boolean = false;
 
 
@@ -28,7 +27,6 @@ export class TrainingQuestionPage implements OnInit {
       private route: ActivatedRoute,
       public textService: TextService,
       public dictService: DictionaryService,
-      public trainService: TrainingService,
   ) { }
 
 
@@ -42,7 +40,7 @@ export class TrainingQuestionPage implements OnInit {
     this.itemId = this.route.snapshot.paramMap.get('itemId');
     this.mode = this.route.snapshot.paramMap.get('mode');
 
-    this.showName = (this.mode == MemoMode.WordSign);
+    this.showWord = (this.mode == MemoMode.WordSign);
     this.showSign = (this.mode == MemoMode.SignWord);
 
     this.dictService.getWord(this.itemId).subscribe((data: any) => {

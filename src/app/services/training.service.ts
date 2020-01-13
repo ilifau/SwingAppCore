@@ -107,7 +107,7 @@ export class TrainingService {
           }
           else {
             return {
-              'itemId': '',
+              'itemId': null,
               'mode': mode,
             };
           }
@@ -119,7 +119,9 @@ export class TrainingService {
    * Save the training result for an item
    * Apply the supermemo algorithm
    */
-  public setQuestionResult(itemId: string, quality: number): Observable<any> {
+  public setResult(itemId: string, quality: number): Observable<any> {
+
+
 
     let item: MemoItem = this.status.items.find((item: MemoItem) => {
       return item.id == itemId;
@@ -232,7 +234,7 @@ export class TrainingService {
   /**
    * Load training status and current words
    */
-  private load(): Observable<any> {
+  public load(): Observable<any> {
     return forkJoin({
       wordIds: this.loadWordIds(),
       data: this.loadStatus(),
@@ -356,16 +358,13 @@ export class TrainingService {
    * Find new items for today
    */
   private findNewIds(max: number) {
-    let ids = [];
     let count: number = 0;
-    let today:string = this.dayFromDate(new Date());
 
     this.status.items.forEach((item: MemoItem) => {
         if (count < max
             && item.views == 0
             && this.wordIds.indexOf(item.id) >=0
             && this.status.newIds.indexOf(item.id) < 0
-
         ) {
           this.status.newIds.push(item.id);
           count++;
@@ -378,7 +377,6 @@ export class TrainingService {
    * Find items to review today
    */
   private findReviewIds(max: number) {
-    let ids = [];
     let count: number = 0;
     let today:string = this.dayFromDate(new Date());
 

@@ -2,7 +2,10 @@
   <section>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="tabs/training" [text]="texts.commonBack"></ion-back-button>
+        <ion-button routerLink="/tabs/training">
+          <ion-icon name="arrow-back"></ion-icon>
+          {{texts.commonBack}}
+        </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </section>
@@ -10,7 +13,7 @@
 
 <ion-content>
 
-  <section *ngIf="showName">
+  <section *ngIf="showWord">
 
     <div class="ion-text-center">
       <h1>{{word.name}}</h1>
@@ -27,7 +30,7 @@
     </div>
 
     <p class="ion-text-center">
-      <ion-button >{{texts.trainShowSign}}</ion-button>
+      <ion-button routerLink="/tabs/training/answer/{{itemId}}/{{mode}}">{{texts.trainShowSign}}</ion-button>
     </p>
 
   </section>
@@ -39,7 +42,7 @@
     </div>
 
     <p class="ion-text-center">
-      <ion-button>{{texts.trainShowWord}}</ion-button>
+      <ion-button routerLink="/tabs/training/answer/{{itemId}}/{{mode}}">{{texts.trainShowWord}}</ion-button>
     </p>
 
   </section>
