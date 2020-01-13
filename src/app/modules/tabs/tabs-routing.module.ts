@@ -47,6 +47,10 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../training/training.module').then(m => m.TrainingPageModule)
+          },
+          {
+            path: 'question/:itemId/:mode',
+            loadChildren: () => import('../training-question/training-question.module').then(m => m.TrainingQuestionPageModule)
           }
         ]
       },

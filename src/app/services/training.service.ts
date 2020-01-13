@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { Observable, of, from, forkJoin} from 'rxjs';
-import { map } from 'rxjs/operators';
-import { supermemo2 } from 'supermemo2';
-import { DictionaryService } from './dictionary.service';
-import { MemoItem } from '../interfaces/memo-item';
-import { MemoResult } from '../interfaces/memo-result';
-import { MemoStatus } from '../interfaces/memo-status';
-import { MemoOverview } from '../interfaces/memo-overview';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {Storage} from '@ionic/storage';
+import {forkJoin, from, Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {DictionaryService} from './dictionary.service';
+import {MemoItem} from '../interfaces/memo-item';
+import {MemoResult} from '../interfaces/memo-result';
+import {MemoMode} from '../interfaces/memo-mode';
+import {MemoStatus} from '../interfaces/memo-status';
+import {MemoOverview} from '../interfaces/memo-overview';
+import {environment} from '../../environments/environment';
 
 declare function supermemo2(quality: number, lastSchedule: number, lastFactor: number): MemoResult;
 
@@ -35,7 +35,7 @@ export class TrainingService {
    */
   public getOverview(): Observable<MemoOverview> {
     return this.load().pipe(
-        map((data: any) => {
+        map(() => {
           return<MemoOverview> {
             trainDate: this.dayToDate(this.status.trainDay).toLocaleDateString(),
             totalCount: this.wordIds.length,
@@ -55,7 +55,7 @@ export class TrainingService {
    */
   public getItem(id: string): Observable<MemoItem> {
     return this.load().pipe(
-        map((data: any) => {
+        map(() => {
           return<MemoItem> this.status.items.find((item: MemoItem) => {
             return item.id == id;
           });
@@ -66,20 +66,50 @@ export class TrainingService {
   /**
    * Get the id of the next item to learn
    */
-  public getNextItemId(): Observable<string> {
+  public getNextQuestion(trainMode?: MemoMode): Observable<any> {
     return this.load().pipe(
-        map((data: any) => {
+        map(() => {
+
+          // save a forced train mode (when training is started)
+          if (trainMode) {
+            this.status.trainMode = trainMode;
+            this.save();
+          }
+
+          // get the actual training mode for the next question
+          let mode = this.status.trainMode;
+          if (mode == MemoMode.Random) {
+            if (Math.random() < 0.5) {
+              mode = MemoMode.WordSign;
+            }
+            else {
+              mode = MemoMode.SignWord;
+            }
+          }
+
           if (this.status.reviewIds.length > 0) {
-            return this.status.reviewIds[0];
+            return {
+              'itemId': this.status.reviewIds[0],
+              'mode': mode,
+            };
           }
           else if (this.status.newIds.length > 0) {
-            return this.status.newIds[0];
+            return {
+              'itemId': this.status.newIds[0],
+              'mode': mode,
+            };
           }
           else if (this.status.repeatIds.length > 0) {
-            return this.status.repeatIds[0];
+            return {
+              'itemId': this.status.repeatIds[0],
+              'mode': mode,
+            };
           }
           else {
-            return '';
+            return {
+              'itemId': '',
+              'mode': mode,
+            };
           }
         })
     );
@@ -89,7 +119,7 @@ export class TrainingService {
    * Save the training result for an item
    * Apply the supermemo algorithm
    */
-  public setItemResult(itemId: string, quality: number) {
+  public setQuestionResult(itemId: string, quality: number): Observable<any> {
 
     let item: MemoItem = this.status.items.find((item: MemoItem) => {
       return item.id == itemId;
@@ -177,6 +207,7 @@ export class TrainingService {
       items: [],
       testDay: this.dayFromDate(new Date()),
       trainDay: '',
+      trainMode: MemoMode.Random,
       newIds: [],
       reviewIds: [],
       repeatIds: []

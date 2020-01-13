@@ -1,0 +1,48 @@
+<ion-header>
+  <section>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/training" [text]="texts.commonBack"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </section>
+</ion-header>
+
+<ion-content>
+
+  <section *ngIf="showName">
+
+    <div class="ion-text-center">
+      <h1>{{word.name}}</h1>
+    </div>
+
+    <div class="ion-text-center" *ngIf="word.img1">
+      <img src="content/{{word.img1}}" alt="{{word.name}}" />
+      <div class="subline">{{word.img1Source}}</div>
+    </div>
+
+    <div class="ion-text-center" *ngIf="word.img2">
+      <img src="content/{{word.img2}}" alt="{{word.name}}" />
+      <div class="subline">{{word.img2Source}}</div>
+    </div>
+
+    <p class="ion-text-center">
+      <ion-button >{{texts.trainShowSign}}</ion-button>
+    </p>
+
+  </section>
+
+  <section *ngIf="showSign">
+
+    <div *ngIf="word.videoName">
+      <video src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls></video>
+    </div>
+
+    <p class="ion-text-center">
+      <ion-button>{{texts.trainShowWord}}</ion-button>
+    </p>
+
+  </section>
+
+
+</ion-content>

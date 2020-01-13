@@ -29,10 +29,11 @@
         <ion-label>{{texts.trainTrainedWords}}</ion-label>
         <ion-note class="counter" slot="end" >{{overview.trainedCount}}</ion-note>
       </ion-item>
+    </ion-list>
 
-      <ion-item-divider sticky>
-        <ion-label>{{overview.trainDate}}</ion-label>
-      </ion-item-divider>
+    <h2>{{overview.trainDate}}</h2>
+
+    <ion-list [lines]="ios ? 'inset' : 'full'">
       <ion-item>
         <ion-label>{{texts.trainTodayNew}}</ion-label>
         <ion-note class="counter" slot="end">{{overview.newCount}}</ion-note>
@@ -48,11 +49,23 @@
     </ion-list>
 
     <p class="ion-text-center">
+      <ion-button (click)="startTraining(MemoMode.Random)">{{texts.trainStartTraining}}</ion-button>
+    </p>
+
+    <p class="ion-text-center">
+      <ion-button fill="clear" (click)="startTraining(MemoMode.WordSign)">{{texts.trainShowWordAskSign}}</ion-button>
+    </p>
+
+    <p class="ion-text-center">
+      <ion-button fill="clear" (click)="startTraining(MemoMode.SignWord)">{{texts.trainShowSignAskWord}}</ion-button>
+    </p>
+
+    <p class="ion-text-center">
       <ion-button fill="clear" (click)="resetTraining()">{{texts.trainResetStatus}}</ion-button>
     </p>
 
     <p class="ion-text-center">
-      <ion-button fill="clear" (click)="setNextDay()">Set Next Day (Development Only)</ion-button>
+      <ion-button fill="clear" color="medium" (click)="setNextDay()">Set Next Day (Development Only)</ion-button>
     </p>
 
   </section>

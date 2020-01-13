@@ -4,7 +4,9 @@ import { TextService } from '../../services/text.service';
 import {FilterPage} from "../filter/filter.page";
 import {TrainingResetPage} from "../training-reset/training-reset.page";
 import {TrainingService} from "../../services/training.service";
+import { MemoMode } from '../../interfaces/memo-mode';
 import { MemoOverview } from '../../interfaces/memo-overview';
+import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-training',
@@ -17,11 +19,16 @@ export class TrainingPage implements OnInit {
   texts: any = {};
   overview: any = {};
 
+  // make enum available in template
+  MemoMode = MemoMode;
+
   constructor(
       public config: Config,
       public modalCtrl: ModalController,
       public textService: TextService,
-      public trainService: TrainingService
+      public trainService: TrainingService,
+      private router: Router,
+      private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -70,4 +77,14 @@ export class TrainingPage implements OnInit {
     });
   }
 
+  startTraining(mode: MemoMode) {
+    this.trainService.getNextQuestion(mode).subscribe((data: any) => {
+      if (data.itemId) {
+        this.router.navigate(['question/' + data.itemId +'/' + data.mode], { relativeTo: this.route });
+      }
+      else {
+
+      }
+    });
+  }
 }
