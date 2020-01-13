@@ -2,7 +2,10 @@
   <section>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="tabs/training" [text]="texts.commonBack"></ion-back-button>
+        <ion-button routerLink="/tabs/training/question/{{itemId}}/{{mode}}">
+          <ion-icon name="arrow-back"></ion-icon>
+          {{texts.commonBack}}
+        </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </section>
@@ -49,13 +52,13 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button color="danger" (click)="finishAnswer(1)">{{texts.trainNotKnown}}</ion-button>
+          <ion-button color="success" (click)="finishAnswer(4)">{{texts.trainWellKnown}}</ion-button>
         </ion-col>
         <ion-col>
           <ion-button color="warning" (click)="finishAnswer(2.5)">{{texts.trainNearlyKnown}}</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="success" (click)="finishAnswer(4)">{{texts.trainWellKnown}}</ion-button>
+          <ion-button color="danger" (click)="finishAnswer(1)">{{texts.trainNotKnown}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

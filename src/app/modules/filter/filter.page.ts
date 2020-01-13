@@ -24,18 +24,21 @@ export class FilterPage implements OnInit {
       public modalCtrl: ModalController
   ) { }
 
-  ionViewWillEnter() {
-    this.ios = this.config.get('mode') === `ios`;
-  }
-
-  ionViewDidEnter() {
-  }
-
+  /**
+   * Once when page is created
+   */
   ngOnInit() {
+    this.ios = this.config.get('mode') === `ios`;
+
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
+  }
 
+  /**
+   * Each time the page is shown
+   */
+  ionViewWillEnter() {
     this.dictService.getFilter().subscribe((modules: any[]) => {
       this.modules = modules;
       this.modules.forEach((module: any) => {

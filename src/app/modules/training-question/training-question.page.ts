@@ -30,13 +30,21 @@ export class TrainingQuestionPage implements OnInit {
   ) { }
 
 
+  /**
+   * Once when page is created
+   */
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
 
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
+  }
 
+  /**
+   * Each time the page is shown
+   */
+  ionViewWillEnter() {
     this.itemId = this.route.snapshot.paramMap.get('itemId');
     this.mode = this.route.snapshot.paramMap.get('mode');
 

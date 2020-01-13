@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Config, ModalController} from '@ionic/angular';
+import { Config, ModalController, AlertController } from '@ionic/angular';
 import { TextService } from '../../services/text.service';
-import {FilterPage} from "../filter/filter.page";
-import {TrainingResetPage} from "../training-reset/training-reset.page";
-import {TrainingService} from "../../services/training.service";
+import { FilterPage} from "../filter/filter.page";
+import { TrainingService} from "../../services/training.service";
 import { MemoMode } from '../../interfaces/memo-mode';
 import { MemoOverview } from '../../interfaces/memo-overview';
 import { Router, ActivatedRoute} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-training',
@@ -18,6 +18,7 @@ export class TrainingPage implements OnInit {
   ios: boolean;
   texts: any = {};
   overview: any = {};
+  production: boolean = true;
 
   // make enum available in template
   MemoMode = MemoMode;
@@ -25,19 +26,33 @@ export class TrainingPage implements OnInit {
   constructor(
       public config: Config,
       public modalCtrl: ModalController,
+      public alertController: AlertController,
       public textService: TextService,
       public trainService: TrainingService,
       private router: Router,
       private route: ActivatedRoute
   ) {}
 
+  /**
+   * Once when page is created
+   */
   ngOnInit() {
+    this.ios = this.config.get('mode') === `ios`;
+
+    this.production = environment.production;
+
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
+  }
 
+  /**
+   * Each time the page is shown
+   */
+  ionViewWillEnter() {
     this.updateOverview();
   }
+
 
   updateOverview() {
     this.trainService.getOverview().subscribe((overview: MemoOverview) => {
@@ -59,17 +74,31 @@ export class TrainingPage implements OnInit {
   }
 
   async resetTraining() {
-    const modal = await this.modalCtrl.create({
-      component: TrainingResetPage,
-      componentProps: { }
+    const alert = await this.alertController.create({
+      header: this.texts.trainResetStatus,
+      message: this.texts.trainResetQuestion,
+      buttons: [
+        {
+          text: this.texts.trainResetStatus,
+          handler: () => {
+            this.trainService.resetTrainingStatus().subscribe(() => {
+              this.updateOverview();
+            });
+          }
+        },
+        {
+          text: this.texts.commonCancel,
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }
+      ]
     });
-    await modal.present();
 
-    const { data } = await modal.onWillDismiss();
-    if (data) {
-      this.updateOverview();
-    }
+    await alert.present();
   }
+
 
   setNextDay() {
     this.trainService.setNextDay().subscribe(() => {

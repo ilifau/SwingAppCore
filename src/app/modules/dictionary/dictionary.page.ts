@@ -31,15 +31,24 @@ export class DictionaryPage implements OnInit {
       public dictService: DictionaryService
   ) {}
 
+  /**
+   * One when page is created
+   */
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
 
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
+  }
 
+  /**
+   * Each time the page is shown
+   */
+  ionViewWillEnter() {
     this.updateWords();
   }
+
 
   updateWords() {
     this.dictService.getDictionary(this.queryText).subscribe((data: Array<Object>) => {

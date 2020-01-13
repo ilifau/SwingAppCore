@@ -10,8 +10,6 @@ import {MemoStatus} from '../interfaces/memo-status';
 import {MemoOverview} from '../interfaces/memo-overview';
 import {environment} from '../../environments/environment';
 
-declare function supermemo2(quality: number, lastSchedule: number, lastFactor: number): MemoResult;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +27,23 @@ export class TrainingService {
       public dictService: DictionaryService,
   ) {}
 
+  /**
+   * Load training status and current words
+   */
+  public load(): Observable<any> {
+    return forkJoin({
+      wordIds: this.loadWordIds(),
+      data: this.loadStatus(),
+    }).pipe(map(this.prepareData, this));
+  }
+
+  /**
+   * Save the training status
+   */
+  public save(): Observable<any> {
+    return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
+  }
+
 
   /**
    * Get a statistical overview
@@ -42,7 +57,7 @@ export class TrainingService {
             trainedCount: this.countTrainedItems(),
             untrainedCount: this.wordIds.length - this.countTrainedItems(),
             newCount: this.status.newIds.length,
-            reviewCount: this.status.repeatIds.length,
+            reviewCount: this.status.reviewIds.length,
             repeatCount: this.status.repeatIds.length
           }
         })
@@ -121,8 +136,6 @@ export class TrainingService {
    */
   public setResult(itemId: string, quality: number): Observable<any> {
 
-
-
     let item: MemoItem = this.status.items.find((item: MemoItem) => {
       return item.id == itemId;
     });
@@ -134,21 +147,22 @@ export class TrainingService {
       return this.save();
     }
 
-    if (this.status.newIds.indexOf(itemId) > 0) {
+    if (this.status.newIds.indexOf(itemId) >= 0) {
       this.removeItemId(this.status.newIds, itemId);
       this.applySuperMemo2(item, quality);
     }
-    else if (this.status.reviewIds.indexOf(itemId) > 0) {
+    else if (this.status.reviewIds.indexOf(itemId) >= 0) {
       this.removeItemId(this.status.reviewIds, itemId);
       this.applySuperMemo2(item, quality);
     }
-    else if (this.status.repeatIds.indexOf(itemId) > 0) {
+    else if (this.status.repeatIds.indexOf(itemId) >= 0) {
         this.removeItemId(this.status.repeatIds, itemId);   // remove from the beginning
     }
 
     if (quality < 4) {
       this.status.repeatIds.push(itemId);                   // add to the end
     }
+
     return this.save();
   }
 
@@ -172,11 +186,12 @@ export class TrainingService {
 
 
   /**
-   * Apply the supermemo 2 algorithm to an item
+   * Apply the supermemo2 algorithm to an item
    */
   private applySuperMemo2(item: MemoItem, quality: number) {
-    let result: MemoResult = supermemo2(quality, item.schedule, item.factor);
+    let result = this.supermemo2(quality, item.schedule, item.factor);
 
+    item.views++;
     item.schedule = result.schedule;
     item.factor = result.factor;
     item.lastDay = this.getToday();
@@ -232,27 +247,12 @@ export class TrainingService {
   }
 
   /**
-   * Load training status and current words
-   */
-  public load(): Observable<any> {
-    return forkJoin({
-      wordIds: this.loadWordIds(),
-      data: this.loadStatus(),
-    }).pipe(map(this.prepareData, this));
-  }
-
-  /**
-   * Save the training status
-   */
-  private save(): Observable<any> {
-    return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
-  }
-
-  /**
    * Load the training status
    */
   private loadStatus(): Observable<any> {
     if (this.status) {
+      console.log('loadStatus(): existed');
+      console.log(this.status);
       return of(this.status);
     } else {
       // load the status
@@ -260,9 +260,13 @@ export class TrainingService {
           .pipe(map((data: any) => {
             if (!data) {
               this.status = this.getInitialStatus();
+              console.log('loadStatus(): initialized');
+              console.log(this.status);
             }
             else {
               this.status = data;
+              console.log('loadStatus(): read');
+              console.log(this.status);
             }
           }));
     }
@@ -302,8 +306,8 @@ export class TrainingService {
     if (this.status.trainDay !== this.status.testDay) {
       this.status.trainDay = this.status.testDay;
       this.status.repeatIds = [];
-      this.findReviewIds(this.MAX_REVIEW_ITEMS_PER_DAY);
       this.findNewIds(this.MAX_NEW_ITEMS_PER_DAY);
+      this.findReviewIds(this.MAX_REVIEW_ITEMS_PER_DAY);
       changed = true;
     }
 
@@ -378,10 +382,11 @@ export class TrainingService {
    */
   private findReviewIds(max: number) {
     let count: number = 0;
-    let today:string = this.dayFromDate(new Date());
+    let today:string = this.getToday();
 
     this.status.items.forEach((item: MemoItem) => {
       if (count < max
+          && item.views > 0
           && this.wordIds.indexOf(item.id) >=0
           && this.status.reviewIds.indexOf(item.id) < 0
           && this.dayInterval(item.nextDay, today) >= 0
@@ -445,6 +450,65 @@ export class TrainingService {
     let date2 = this.dayToDate(day2);
 
     // getTime provides milliseconds
-    return Math.round((date2.getTime() - date1.getTime()) / 86400000);
+    let interval =  Math.round((date2.getTime() - date1.getTime()) / 86400000);
+    return interval;
+  }
+
+
+  /**
+   * Helper function for the supermemo2 algorithm
+   * @see https://github.com/sunaiwen/supermemo2.js
+   * @see https://www.supermemo.com/english/ol/sm2.htm
+   *
+   * @params {number} the old factor of the previous day
+   * @params {number} the quality of review
+   */
+
+  private calcFactor(oldFac, quality) {
+    return oldFac + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
+  }
+
+  /**
+   * Supermemo2 algorithm
+   * @see https://github.com/sunaiwen/supermemo2.js
+   * @see https://www.supermemo.com/english/ol/sm2.htm
+
+   * @params {number} a number between 0~5 representing the quality of review. 0 is the worse while 5 is the best.
+   * @params {number} the factor of last schedual
+   */
+  private supermemo2 (quality, lastSchedule, lastFactor): MemoResult {
+    let newFac;
+    let curSchedule;
+
+    if(quality == null || quality < 0 || quality > 5) {
+      quality = 0
+    }
+
+    if(lastSchedule === 1) {
+      curSchedule = 6;
+      newFac = 2.5;
+    } else if(lastSchedule == null) {
+      curSchedule = 1;
+      newFac = 2.5;
+    } else {
+      if(quality < 3) {
+        newFac = lastFactor;
+        curSchedule = lastSchedule
+      } else {
+        newFac = this.calcFactor(lastFactor, quality);
+
+        if(newFac < 1.3) {
+          newFac = 1.3
+        }
+
+        curSchedule = Math.round(lastSchedule * newFac)
+      }
+    }
+
+    return {
+      factor: newFac,
+      schedule: curSchedule,
+      isRepeatAgain: quality < 4
+    }
   }
 }

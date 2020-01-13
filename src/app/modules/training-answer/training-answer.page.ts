@@ -34,6 +34,9 @@ export class TrainingAnswerPage implements OnInit {
   ) { }
 
 
+  /**
+   * Once when page is created
+   */
   ngOnInit() {
     this.ios = this.config.get('mode') === 'ios';
 
@@ -41,6 +44,12 @@ export class TrainingAnswerPage implements OnInit {
       this.texts = data;
     });
 
+  }
+
+  /**
+   * Each time the page is shown
+   */
+  ionViewWillEnter() {
     this.itemId = this.route.snapshot.paramMap.get('itemId');
     this.mode = this.route.snapshot.paramMap.get('mode');
 
@@ -53,6 +62,7 @@ export class TrainingAnswerPage implements OnInit {
       }
     });
   }
+
 
   finishAnswer(quality) {
     this.trainService.load().subscribe(() => {
