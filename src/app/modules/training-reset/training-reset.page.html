@@ -9,12 +9,15 @@
   <section class="ion-padding-horizontal">
 
       <p class="ion-text-center" [innerHTML]="texts.trainResetQuestion"></p>
-
-      <p class="ion-text-center">
-        <ion-button (click)="confirmReset()">{{texts.trainResetStatus}}</ion-button>
-        <ion-button color="medium" (click)="cancelReset()">{{texts.commonCancel}}</ion-button>
-      </p>
-
   </section>
 
 </ion-content>
+
+<ion-footer>
+
+  <p class="ion-text-center">
+    <ion-button (click)="confirmReset()">{{texts.trainResetStatus}}</ion-button>
+    <ion-button color="medium" (click)="cancelReset()">{{texts.commonCancel}}</ion-button>
+  </p>
+
+</ion-footer>
