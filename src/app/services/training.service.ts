@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { of } from 'rxjs';
-import { from } from 'rxjs';
-import { forkJoin } from 'rxjs';
+import { Observable, of, from, forkJoin} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { supermemo2 } from 'supermemo2';
 import { DictionaryService } from './dictionary.service';
@@ -23,7 +21,7 @@ export class TrainingService {
   private wordIds: Array<string>;
 
   private KEY_TRAINING_STATUS = 'trainingStatus';
-  private MAX_NEW_ITEMS_PER_DAY = 10;
+  private MAX_NEW_ITEMS_PER_DAY = 5;
   private MAX_REVIEW_ITEMS_PER_DAY = 50;
 
   constructor(
@@ -35,7 +33,7 @@ export class TrainingService {
   /**
    * Get a statistical overview
    */
-  public getOverview(): any {
+  public getOverview(): Observable<MemoOverview> {
     return this.load().pipe(
         map((data: any) => {
           return<MemoOverview> {
@@ -55,7 +53,7 @@ export class TrainingService {
    * Get the status data of a single item
    * @param id
    */
-  public getItem(id: string): any {
+  public getItem(id: string): Observable<MemoItem> {
     return this.load().pipe(
         map((data: any) => {
           return<MemoItem> this.status.items.find((item: MemoItem) => {
@@ -68,7 +66,7 @@ export class TrainingService {
   /**
    * Get the id of the next item to learn
    */
-  public getNextItemId(): any {
+  public getNextItemId(): Observable<string> {
     return this.load().pipe(
         map((data: any) => {
           if (this.status.reviewIds.length > 0) {
@@ -90,8 +88,6 @@ export class TrainingService {
   /**
    * Save the training result for an item
    * Apply the supermemo algorithm
-   * @param itemId
-   * @param quality
    */
   public setItemResult(itemId: string, quality: number) {
 
@@ -127,7 +123,7 @@ export class TrainingService {
   /**
    * Increase the current day (for testing purposes)
    */
-  public setNextDay() {
+  public setNextDay(): Observable<any> {
     let date = this.dayToDate(this.status.testDay);
     date.setDate(date.getDate() + 1);
     this.status.testDay = this.dayFromDate(date);
@@ -137,7 +133,7 @@ export class TrainingService {
   /**
    * Reset all training items and lists
    */
-  public resetTrainingStatus() {
+  public resetTrainingStatus(): Observable<any> {
     this.status = this.getInitialStatus();
     return this.save();
   }
@@ -145,8 +141,6 @@ export class TrainingService {
 
   /**
    * Apply the supermemo 2 algorithm to an item
-   * @param item
-   * @param quality
    */
   private applySuperMemo2(item: MemoItem, quality: number) {
     let result: MemoResult = supermemo2(quality, item.schedule, item.factor);
@@ -207,7 +201,7 @@ export class TrainingService {
   /**
    * Load training status and current words
    */
-  private load(): any {
+  private load(): Observable<any> {
     return forkJoin({
       wordIds: this.loadWordIds(),
       data: this.loadStatus(),
@@ -217,14 +211,14 @@ export class TrainingService {
   /**
    * Save the training status
    */
-  private save() {
+  private save(): Observable<any> {
     return of(this.storage.set(this.KEY_TRAINING_STATUS, this.status));
   }
 
   /**
    * Load the training status
    */
-  private loadStatus(): any {
+  private loadStatus(): Observable<any> {
     if (this.status) {
       return of(this.status);
     } else {
@@ -245,7 +239,7 @@ export class TrainingService {
    * Load the current list of word ids
    * (always get from dictionary service because filter may have changed)
    */
-  private loadWordIds(): any {
+  private loadWordIds(): Observable<any> {
     return this.dictService.getFilteredWordIds()
         .pipe(map((data: Array<string>) => {
           this.wordIds = data;
@@ -329,7 +323,6 @@ export class TrainingService {
 
   /**
    * Find new items for today
-   * @param max
    */
   private findNewIds(max: number) {
     let ids = [];
@@ -352,7 +345,6 @@ export class TrainingService {
 
   /**
    * Find items to review today
-   * @param max
    */
   private findReviewIds(max: number) {
     let ids = [];
@@ -387,11 +379,9 @@ export class TrainingService {
 
 
   /**
-   * get a day string like '2020-01-10' from a date object
-   * @param date Date
-   * @return string
+   * Get a day string like '2020-01-10' from a date object
    */
-  private dayFromDate(date: Date) {
+  private dayFromDate(date: Date): string {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let monthday = date.getDate();
@@ -402,10 +392,8 @@ export class TrainingService {
 
   /**
    * Get a date object from a day sting like '2020-01-10'
-   * @param day string
-   * @return Date
    */
-  private dayToDate(day: string) {
+  private dayToDate(day: string): Date {
     let parts = day.split('-');
 
     let year = +parts[0];       // cast to number
@@ -422,7 +410,7 @@ export class TrainingService {
    * @param day2 string   '2020-01-02'
    * @return number       days from day1 to day2 (negative if day2 is earlier)
    */
-  private dayInterval(day1: string, day2: string) {
+  private dayInterval(day1: string, day2: string): number {
 
     let date1 = this.dayToDate(day1);
     let date2 = this.dayToDate(day2);

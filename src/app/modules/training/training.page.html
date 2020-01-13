@@ -45,7 +45,15 @@
         <ion-label>{{texts.trainTodayRepeat}}</ion-label>
         <ion-note class="counter" slot="end">{{overview.repeatCount}}</ion-note>
       </ion-item>
-
     </ion-list>
+
+    <p class="ion-text-center">
+      <ion-button fill="clear" (click)="resetTraining()">{{texts.trainResetStatus}}</ion-button>
+    </p>
+
+    <p class="ion-text-center">
+      <ion-button fill="clear" (click)="setNextDay()">Set Next Day (Development Only)</ion-button>
+    </p>
+
   </section>
 </ion-content>

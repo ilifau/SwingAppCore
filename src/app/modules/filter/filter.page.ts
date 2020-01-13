@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Config, ModalController} from '@ionic/angular';
 
 import { TextService } from '../../services/text.service';

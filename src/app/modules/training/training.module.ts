@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TrainingPage } from './training.page';
 import { FilterPageModule } from '../filter/filter.module';
+import { TrainingResetPageModule } from '../training-reset/training-reset.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { FilterPageModule } from '../filter/filter.module';
     CommonModule,
     FormsModule,
     FilterPageModule,
+    TrainingResetPageModule,
     RouterModule.forChild([{ path: '', component: TrainingPage }])
   ],
   declarations: [TrainingPage]
