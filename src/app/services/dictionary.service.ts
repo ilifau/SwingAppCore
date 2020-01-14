@@ -177,7 +177,8 @@ export class DictionaryService {
    * @param queryText
    */
   getDictionary(
-      queryText = ''
+      queryText = '',
+      filterOn = true
   ) {
     return this.load().pipe(
         map((joined: any) => {
@@ -191,7 +192,12 @@ export class DictionaryService {
             group.words.forEach((word: any) => {
 
               // check if this word should show or not
-              this.filterWord(word, queryWords, this.excludedUnitIds);
+              if (filterOn) {
+                this.filterWord(word, queryWords, this.excludedUnitIds);
+              }
+              else {
+                this.filterWord(word, queryWords, []);
+              }
 
               // if this word is not hidden then this group should show
               if (!word.hide) {

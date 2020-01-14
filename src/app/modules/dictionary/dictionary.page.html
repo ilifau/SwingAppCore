@@ -5,6 +5,8 @@
       <ion-title>{{ texts.headDictionary }}</ion-title>
 
       <ion-buttons slot="end">
+        <span *ngIf="!ios">{{texts.commonFilter}}</span>
+        <ion-toggle [(ngModel)]="filterOn" (ionChange)="updateWords()">{{texts.commonFilter}}</ion-toggle>
         <ion-button (click)="presentFilter()">
           <span *ngIf="ios">{{texts.commonFilter}}</span>
           <span *ngIf="!ios">
