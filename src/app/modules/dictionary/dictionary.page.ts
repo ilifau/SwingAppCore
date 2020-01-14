@@ -18,8 +18,8 @@ export class DictionaryPage implements OnInit {
 
   ios: boolean;
   queryText = '';
-  filterOn: true;
-  shownGroups: number;
+  filterOn = false;
+  shownGroups = 0;
   groups: any = [];
   texts: any = {};
 
@@ -52,6 +52,9 @@ export class DictionaryPage implements OnInit {
 
 
   updateWords() {
+    if (this.queryText.length > 0) {
+      this.filterOn = false;
+    }
     this.dictService.getDictionary(this.queryText, this.filterOn).subscribe((data: Array<Object>) => {
         this.groups = data;
         this.shownGroups = data.length;

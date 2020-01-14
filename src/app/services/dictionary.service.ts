@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { of } from 'rxjs';
-import { from } from 'rxjs';
-import { forkJoin } from 'rxjs';
+import { of, from, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -26,7 +24,7 @@ export class DictionaryService {
   /**
    * Load all data from json and storage
    */
-  load(): any {
+  private load(): Observable<any> {
     return forkJoin({
       excludedUnitIds: this.loadExcludedUnitIds(),
       data: this.loadData(),
@@ -36,7 +34,7 @@ export class DictionaryService {
   /**
    * Load the list of excluded unit ids from the storage
    */
-  loadExcludedUnitIds(): any {
+  private loadExcludedUnitIds(): Observable<any> {
     if (this.excludedUnitIds) {
       return of(this.excludedUnitIds);
     } else {
@@ -53,7 +51,7 @@ export class DictionaryService {
   /**
    * Load all words, training module and training unit definitions from a json file
    */
-  loadData(): any {
+  private loadData(): Observable<any> {
     if (this.data) {
       return of(this.data);
     } else {
@@ -69,7 +67,7 @@ export class DictionaryService {
    * Process the dictionary data once they are loaded
    * @param data
    */
-  processData(data: any) {
+  private processData(data: any) {
     this.data = data;
 
     // assign the units to the modules
@@ -141,7 +139,7 @@ export class DictionaryService {
    * @param queryWords
    * @param excludedUnitIds
    */
-  filterWord(
+  private filterWord(
       word: any,
       queryWords: string[],
       excludedUnitIds: any[],
@@ -174,14 +172,12 @@ export class DictionaryService {
 
   /**
    * Get an alphabetically grouped list of words
-   * @param queryText
    */
-  getDictionary(
-      queryText = '',
-      filterOn = true
-  ) {
+  public getDictionary(queryText: string = '', filterOn: boolean = true): Observable<any> {
     return this.load().pipe(
         map((joined: any) => {
+
+          let groups = [];
 
           queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
           const queryWords = queryText.split(' ').filter(w => !!w.trim().length);
@@ -204,9 +200,13 @@ export class DictionaryService {
                 group.hide = false;
               }
             });
+
+            if (!group.hide) {
+              groups.push(group);
+            }
           });
 
-          return this.data.groups;
+          return groups;
         })
     );
   }
@@ -214,7 +214,7 @@ export class DictionaryService {
   /**
    * Get a list of modules with filter flags in units
    */
-  getFilter() {
+  public getFilter(): Observable<any> {
     return this.load().pipe(
         map((joined: any) => {
 
@@ -230,7 +230,7 @@ export class DictionaryService {
    * Get the data of single word
    * @param id
    */
-  getWord(id: any) {
+  public getWord(id: any): Observable<any> {
     return this.loadData().pipe(
         map((data: any) => {
           return data.words.find(
@@ -242,7 +242,7 @@ export class DictionaryService {
   /**
    * Get a list of training modules
    */
-  getModules() {
+  public getModules(): Observable<any> {
     return this.loadData().pipe(
         map((data: any) => {
           return data.modules.sort();
@@ -254,7 +254,7 @@ export class DictionaryService {
    * Get the data of a training module
    * @param id
    */
-  getModule(id: any) {
+  public getModule(id: any): Observable<any> {
     return this.loadData().pipe(
         map((data: any) => {
           return data.modules.find(
@@ -267,7 +267,7 @@ export class DictionaryService {
    * Get the data of a training unit
    * @param id
    */
-  getUnit(id: any) {
+  public getUnit(id: any): Observable<any> {
     return this.loadData().pipe(
         map((data: any) => {
           return data.units.find(
@@ -281,17 +281,16 @@ export class DictionaryService {
    * Store and set the ids of excluded units
    * @param ids
    */
-  setExcludedUnitIds(ids: any) {
+  public setExcludedUnitIds(ids: any): Observable<any> {
     this.excludedUnitIds = ids;
-    this.storage.set(this.KEY_EXCLUDED_UNIT_IDS, ids).then((value) => {
-    });
+    return of(this.storage.set(this.KEY_EXCLUDED_UNIT_IDS, ids))
   }
 
 
   /**
    * Get the current list of word ids that match the units filter
    */
-  getFilteredWordIds() {
+  public getFilteredWordIds(): Observable<any> {
     return this.load().pipe(
         map((data: any) => {
           let filteredWordIds = [];

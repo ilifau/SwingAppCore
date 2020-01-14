@@ -106,6 +106,12 @@ export class TrainingPage implements OnInit {
     });
   }
 
+  addNewItems() {
+    this.trainService.addNewItems().subscribe(() => {
+      this.updateOverview();
+    });
+  }
+
   startTraining(mode: MemoMode) {
     this.trainService.getNextQuestion(mode).subscribe((data: any) => {
       if (data.itemId) {

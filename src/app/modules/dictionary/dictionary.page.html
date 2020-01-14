@@ -5,19 +5,18 @@
       <ion-title>{{ texts.headDictionary }}</ion-title>
 
       <ion-buttons slot="end">
-        <span *ngIf="!ios">{{texts.commonFilter}}</span>
-        <ion-toggle [(ngModel)]="filterOn" (ionChange)="updateWords()">{{texts.commonFilter}}</ion-toggle>
-        <ion-button (click)="presentFilter()">
-          <span *ngIf="ios">{{texts.commonFilter}}</span>
-          <span *ngIf="!ios">
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </span>
-        </ion-button>
+          <span>{{texts.commonFilter}}</span>
+          <ion-toggle [(ngModel)]="filterOn" (ionChange)="updateWords()" name="filter" >{{texts.commonFilter}}</ion-toggle>
+          <ion-button (click)="presentFilter()">
+            <span>
+              <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </span>
+          </ion-button>
       </ion-buttons>
     </ion-toolbar>
 
     <ion-toolbar>
-      <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateWords()" placeholder="{{texts.dictSearch}}"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateWords()" placeholder="{{texts.dictSearch}}" name="search"></ion-searchbar>
     </ion-toolbar>
   </section>
 </ion-header>

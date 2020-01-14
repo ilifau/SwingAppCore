@@ -33,7 +33,7 @@ export class TrainingService {
   public load(): Observable<any> {
     return forkJoin({
       wordIds: this.loadWordIds(),
-      data: this.loadStatus(),
+      status: this.loadStatus(),
     }).pipe(map(this.prepareData, this));
   }
 
@@ -58,7 +58,8 @@ export class TrainingService {
             untrainedCount: this.wordIds.length - this.countTrainedItems(),
             newCount: this.status.newIds.length,
             reviewCount: this.status.reviewIds.length,
-            repeatCount: this.status.repeatIds.length
+            repeatCount: this.status.repeatIds.length,
+            todayCount: this.status.newIds.length + this.status.reviewIds.length + this.status.repeatIds.length
           }
         })
     );
@@ -184,6 +185,13 @@ export class TrainingService {
     return this.save();
   }
 
+  /**
+   * Add new items to be trained today
+   */
+  public addNewItems(): Observable<any> {
+    this.findNewIds(this.MAX_NEW_ITEMS_PER_DAY);
+    return this.save();
+  }
 
   /**
    * Apply the supermemo2 algorithm to an item
@@ -338,10 +346,14 @@ export class TrainingService {
    */
   private removeMissingWordIds(list: Array<string>) {
     let removed = 0;
-    for( let i = 0; i < list.length; i++){
+    let i = 0;
+    while (i < list.length) {
       if ( this.wordIds.indexOf(list[i]) < 0) {
         list.splice(i, 1);
         removed++;
+      }
+      else {
+        i++;
       }
     }
     return removed;
@@ -450,8 +462,7 @@ export class TrainingService {
     let date2 = this.dayToDate(day2);
 
     // getTime provides milliseconds
-    let interval =  Math.round((date2.getTime() - date1.getTime()) / 86400000);
-    return interval;
+    return Math.round((date2.getTime() - date1.getTime()) / 86400000);
   }
 
 

@@ -1,7 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="selectAll(true)">{{texts.commonSelectAll}}</ion-button>
       <ion-button (click)="selectAll(false)">{{texts.commonUnselectAll}}</ion-button>
     </ion-buttons>
 
@@ -21,6 +20,9 @@
         <ion-label>
           {{module.name}}
         </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="selectModule(module.id, true)">{{texts.commonSelectAll}}</ion-button>
+        </ion-buttons>
       </ion-item-divider>
 
       <ion-item-sliding *ngFor="let unit of module.units" [attr.unit]="unit.id">

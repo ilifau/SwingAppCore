@@ -7,10 +7,7 @@
 
       <ion-buttons slot="end">
         <ion-button (click)="presentFilter()">
-          <span *ngIf="ios">{{texts.commonFilter}}</span>
-          <span *ngIf="!ios">
           <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </span>
         </ion-button>
       </ion-buttons>
 
@@ -31,7 +28,7 @@
       </ion-item>
     </ion-list>
 
-    <h2>{{overview.trainDate}}</h2>
+    <h2>{{overview.trainDate}} - {{texts.trainToday}}</h2>
 
     <ion-list [lines]="ios ? 'inset' : 'full'">
       <ion-item>
@@ -48,13 +45,20 @@
       </ion-item>
     </ion-list>
 
-    <p class="ion-text-center" *ngIf="overview.newCount + overview.reviewCount + overview.repeatCount > 0">
+    <p class="ion-text-center" *ngIf="overview.todayCount > 0">
       <ion-button (click)="startTraining(MemoMode.Random)">{{texts.trainStartTraining}}</ion-button>
-      <ion-button fill="clear" (click)="startTraining(MemoMode.WordSign)">{{texts.trainShowWordAskSign}}</ion-button>
-      <ion-button fill="clear" (click)="startTraining(MemoMode.SignWord)">{{texts.trainShowSignAskWord}}</ion-button>
+      <br />
+      <ion-button fill="outline" (click)="startTraining(MemoMode.WordSign)">{{texts.trainShowWordAskSign}}</ion-button>
+      <br />
+      <ion-button fill="outline" (click)="startTraining(MemoMode.SignWord)">{{texts.trainShowSignAskWord}}</ion-button>
     </p>
 
     <p class="ion-text-center">
+      <ion-button fill="clear" (click)="addNewItems()"
+                  *ngIf="overview.totalCount - overview.trainedCount > 0 && overview.todayCount == 0">
+        {{texts.trainAddNew}}
+      </ion-button>
+      <br />
       <ion-button fill="clear" (click)="resetTraining()">{{texts.trainResetStatus}}</ion-button>
     </p>
 

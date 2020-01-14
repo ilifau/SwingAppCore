@@ -56,11 +56,23 @@ export class FilterPage implements OnInit {
     });
   }
 
+  selectModule(id: string, check: boolean) {
+    this.modules.forEach((module: any) => {
+      if (module.id == id) {
+        module.units.forEach((unit: any) => {
+          unit.isChecked = check;
+        });
+      }
+    });
+  }
+
+
   applyFilters() {
     const excludedUnitIds = this.units.filter(c => !c.isChecked).map(c => c.id);
-    this.dictService.setExcludedUnitIds(excludedUnitIds);
-    // Pass back a value to eventually trigger an update
-    this.dismiss(true);
+    this.dictService.setExcludedUnitIds(excludedUnitIds).subscribe(() => {
+      // Pass back a value to eventually trigger an update
+      this.dismiss(true);
+    })
   }
 
   dismiss(data?: any) {

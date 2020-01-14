@@ -74,11 +74,12 @@
     "trainUnknownWords": "nicht gewusst",
     "trainUntrainedWords": "Noch nicht trainiert",
     "trainWellKnown": "Ja",
-    "trainTrainedWords": "Bereits trainiert",
+    "trainTrainedWords": "Trainierte Wörter",
     "trainTodayNew": "Neue W\u00f6rter",
     "trainTodayReview": "Trainierte W\u00f6rter",
-    "trainTodayRepeat": "Zu wiederholen",
+    "trainTodayRepeat": "Wiederholen",
     "trainAskRemembered": "Korrekt erinnert?",
-    "trainNearlyKnown": "Beinahe"
-
+    "trainNearlyKnown": "Beinahe",
+    "trainToday": "Heute trainieren",
+    "trainAddNew": "Neue hinzufügen"
 }
