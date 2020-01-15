@@ -42,7 +42,7 @@
       <div class="subline">{{word.img2Source}}</div>
     </div>
 
-    <div class="ion-padding-horizontal" *ngIf="word.relatedWords">
+    <div class="ion-padding-horizontal" *ngIf="word.relatedWords.length">
       <h2>{{texts.dictRelatedWords}}</h2>
       <ion-list>
         <ion-item *ngFor="let related of word.relatedWords" routerLink="/tabs/dictionary/word/{{related.id}}">
