@@ -41,7 +41,13 @@ export class DictionaryService {
       // load the filter as early as possible
       return from(this.storage.get(this.KEY_EXCLUDED_UNIT_IDS))
           .pipe(map((data: any) => {
-            this.excludedUnitIds = data;
+            if (data) {
+              this.excludedUnitIds = data;
+            }
+            else {
+              this.excludedUnitIds = [];
+            }
+
             return this.excludedUnitIds;
           }));
     }
