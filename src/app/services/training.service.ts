@@ -259,8 +259,8 @@ export class TrainingService {
    */
   private loadStatus(): Observable<any> {
     if (this.status) {
-      console.log('loadStatus(): existed');
-      console.log(this.status);
+      //console.log('loadStatus(): existed');
+      //console.log(this.status);
       return of(this.status);
     } else {
       // load the status
@@ -268,13 +268,13 @@ export class TrainingService {
           .pipe(map((data: any) => {
             if (!data) {
               this.status = this.getInitialStatus();
-              console.log('loadStatus(): initialized');
-              console.log(this.status);
+              //console.log('loadStatus(): initialized');
+              //console.log(this.status);
             }
             else {
               this.status = data;
-              console.log('loadStatus(): read');
-              console.log(this.status);
+              //console.log('loadStatus(): read');
+              //console.log(this.status);
             }
           }));
     }

@@ -92,15 +92,7 @@ export class DictionaryService {
 
     // sort the words alphabetically
     this.data.words = this.data.words.sort(function (w1,w2) {
-      if (w1.name < w2.name) {
-          return -1;
-      }
-      else if (w1.name > w2.name) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
+      return w1.name.localeCompare(w2.name, [], {usage: 'sort', sensitivity: 'base'});
     });
 
     // create alphabetical groups from the words
@@ -108,7 +100,9 @@ export class DictionaryService {
     this.data.words.forEach((word: any) => {
       var letter = word.name.charAt(0).toUpperCase();
       var group = this.data.groups.find(
-          (s: any) => s.letter === letter
+          (s: any) => {
+            return s.letter.localeCompare(letter, [], {usage: 'sort', sensitivity: 'base'}) == 0;
+          }
       );
 
       if (!group) {
