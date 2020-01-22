@@ -64,3 +64,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+// getUserMedia patch
+import 'zone.js/dist/zone-patch-user-media';

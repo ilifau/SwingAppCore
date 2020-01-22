@@ -15,7 +15,7 @@
     </div>
 
     <div *ngIf="word.videoName">
-      <video src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls></video>
+      <video type="video/mp4" src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls oncontextmenu="return false;" controlsList="nodownload"></video>
     </div>
 
     <div class="ion-padding-horizontal">
@@ -24,7 +24,7 @@
     </div>
 
     <div *ngIf="word.videoDesc">
-      <video src="content/{{word.videoDesc}}" poster="content/{{word.videoDescStart}}" controls></video>
+      <video type="video/mp4" preload="auto" src="content/{{word.videoDesc}}" poster="content/{{word.videoDescStart}}" controls oncontextmenu="return false;" controlsList="nodownload"></video>
     </div>
 
     <div class="ion-padding-horizontal" *ngIf="word.synonyms">
