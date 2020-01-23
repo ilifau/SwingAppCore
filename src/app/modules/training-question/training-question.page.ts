@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Config} from "@ionic/angular";
 import { MemoMode } from '../../interfaces/memo-mode';
 import {TextService} from "../../services/text.service";
+import { MediaService} from "../../services/media.service";
 import {DictionaryService} from "../../services/dictionary.service";
 
 @Component({
@@ -26,6 +27,7 @@ export class TrainingQuestionPage implements OnInit {
       public config: Config,
       private route: ActivatedRoute,
       public textService: TextService,
+      public mediaService: MediaService,
       public dictService: DictionaryService,
   ) { }
 
@@ -54,6 +56,10 @@ export class TrainingQuestionPage implements OnInit {
     this.dictService.getWord(this.itemId).subscribe((data: any) => {
       if (data) {
         this.word = data;
+
+        if (this.ios && this.word.videoName) {
+          this.mediaService.loadVideo('questionVideoName'+ this.word.id, 'content/'+this.word.videoName);
+        }
       }
     });
   }

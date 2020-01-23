@@ -21,12 +21,14 @@ export class DictionaryWordPage implements OnInit {
       public config: Config,
       private route: ActivatedRoute,
       public textService: TextService,
-      public dictService: DictionaryService,
       public mediaService: MediaService,
+      public dictService: DictionaryService,
 
   ) { }
 
   ngOnInit() {
+    this.ios = this.config.get('mode') === 'ios';
+
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
@@ -36,14 +38,12 @@ export class DictionaryWordPage implements OnInit {
     this.dictService.getWord(wordId).subscribe((data: any) => {
       this.word = data;
 
-      if (this.word.videoName) {
+      if (this.ios && this.word.videoName) {
         this.mediaService.loadVideo('dictVideoName'+ this.word.id, 'content/'+this.word.videoName);
       }
-      if (this.word.videoDesc) {
+      if (this.ios && this.word.videoDesc) {
         this.mediaService.loadVideo('dictVideoDesc'+ this.word.id, 'content/'+this.word.videoDesc);
       }
     });
-
-    this.ios = this.config.get('mode') === 'ios';
   }
 }

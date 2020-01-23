@@ -16,7 +16,7 @@
     </div>
 
     <p *ngIf="module.videoName">
-      <video src="content/{{module.videoName}}" poster="content/{{module.videoNameStart}}" controls></video>
+      <video id="moduleVideoName{{module.id}}" src="content/{{module.videoName}}" poster="content/{{module.videoNameStart}}" controls controlsList="nodownload"></video>
     </p>
 
     <div *ngIf="module.description" class="ion-padding-horizontal">
@@ -24,7 +24,7 @@
     </div>
 
     <p *ngIf="module.videoDesc">
-      <video src="content/{{module.videoDesc}}" poster="content/{{module.videoDescStart}}" controls></video>
+      <video id="moduleVideoDesc{{module.id}}" src="content/{{module.videoDesc}}" poster="content/{{module.videoDescStart}}" controls controlsList="nodownload"></video>
     </p>
 
     <div class="ion-padding-horizontal">

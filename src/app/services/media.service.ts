@@ -42,27 +42,27 @@ export class MediaService {
    */
   loadVideo(elementId, srcUrl) {
 
-    console.log("load " + elementId + ' from ' + srcUrl);
+    //console.log("load " + elementId + ' from ' + srcUrl);
     let xhr = new XMLHttpRequest();
     xhr.open('GET', srcUrl, true);
-    //xhr.responseType = 'arraybuffer'; //important
     xhr.responseType = 'blob'; //important
+    //xhr.responseType = 'arraybuffer'; //important
     xhr.onload = function(e) {
       if (this.status == 200) {
-        console.log("loaded " + srcUrl);
-
+        //console.log("loaded " + srcUrl);
         let blob = new Blob([this.response], {type: 'video/mp4'});
         let video:any = document.getElementById(elementId);
         let fileReader = new FileReader();
         fileReader.readAsDataURL(blob);
         fileReader.onloadend = function() {
+          alert('show source in ' + video.id);
           video.src = fileReader.result;
         }
-        //let code = btoa(String.fromCharCode.apply(null, new Uint8Array(this.response)));
-        //console.log(code);
-        //let video:any = document.getElementById(elementId);
+        // let code = btoa(String.fromCharCode.apply(null, new Uint8Array(this.response)));
+        // let video:any = document.getElementById(elementId);
+        // alert('show source in ' + video.id);
         // video.src = "data:video/mp4;base64,"+code;
-        // video.load();
+        video.load();
       }
     };
     xhr.send();

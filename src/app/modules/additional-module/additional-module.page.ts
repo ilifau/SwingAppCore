@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Config} from "@ionic/angular";
 import {TextService} from "../../services/text.service";
+import { MediaService} from "../../services/media.service";
 import {DictionaryService} from "../../services/dictionary.service";
 
 @Component({
@@ -21,6 +22,7 @@ export class AdditionalModulePage implements OnInit {
       private route: ActivatedRoute,
       public textService: TextService,
       public dictService: DictionaryService,
+      public mediaService:MediaService,
 
   ) { }
 
@@ -35,6 +37,14 @@ export class AdditionalModulePage implements OnInit {
 
     this.dictService.getModule(moduleId).subscribe((data: any) => {
       this.module = data;
+
+      if (this.ios && this.module.videoName) {
+        this.mediaService.loadVideo('moduleVideoName'+ this.module.id, 'content/'+this.module.videoName);
+      }
+      if (this.ios && this.module.videoDesc) {
+        this.mediaService.loadVideo('moduleVideoDesc'+ this.module.id, 'content/'+this.module.videoDesc);
+      }
+
     });
   }
 

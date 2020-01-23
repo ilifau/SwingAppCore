@@ -3,6 +3,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import {Config} from "@ionic/angular";
 import { MemoMode } from '../../interfaces/memo-mode';
 import {TextService} from "../../services/text.service";
+import { MediaService} from "../../services/media.service";
 import {DictionaryService} from "../../services/dictionary.service";
 import {TrainingService} from "../../services/training.service";
 
@@ -27,6 +28,7 @@ export class TrainingAnswerPage implements OnInit {
   constructor(
       public config: Config,
       public textService: TextService,
+      public mediaService: MediaService,
       public dictService: DictionaryService,
       public trainService: TrainingService,
       private router: Router,
@@ -59,6 +61,10 @@ export class TrainingAnswerPage implements OnInit {
     this.dictService.getWord(this.itemId).subscribe((data: any) => {
       if (data) {
         this.word = data;
+
+        if (this.ios && this.word.videoName) {
+          this.mediaService.loadVideo('answerVideoName'+ this.word.id, 'content/'+this.word.videoName);
+        }
       }
     });
   }
