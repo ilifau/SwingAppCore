@@ -19,7 +19,7 @@ export class DictionaryPage implements OnInit {
   ios: boolean;
   queryText = '';
   filterOn = false;
-  shownGroups = 0;
+  shownGroups = -1;
   groups: any = [];
   texts: any = {};
 
