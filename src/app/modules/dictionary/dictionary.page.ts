@@ -18,7 +18,7 @@ export class DictionaryPage implements OnInit {
 
   ios: boolean;
   queryText = '';
-  filterOn = false;
+  filterOn = true;
   shownGroups = -1;
   groups: any = [];
   texts: any = {};
@@ -70,6 +70,7 @@ export class DictionaryPage implements OnInit {
 
     const { data } = await modal.onWillDismiss();
     if (data) {
+      this.filterOn = true;
       this.updateWords();
     }
   }

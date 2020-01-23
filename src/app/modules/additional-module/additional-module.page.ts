@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Config} from "@ionic/angular";
+import {Config, ModalController} from "@ionic/angular";
 import {TextService} from "../../services/text.service";
 import { MediaService} from "../../services/media.service";
 import {DictionaryService} from "../../services/dictionary.service";
+import {FilterPage} from "../filter/filter.page";
 
 @Component({
   selector: 'app-additional-module',
@@ -19,6 +20,7 @@ export class AdditionalModulePage implements OnInit {
 
   constructor(
       public config: Config,
+      public modalCtrl: ModalController,
       private route: ActivatedRoute,
       public textService: TextService,
       public dictService: DictionaryService,
@@ -46,6 +48,15 @@ export class AdditionalModulePage implements OnInit {
       }
 
     });
+  }
+
+  async presentFilter() {
+    const modal = await this.modalCtrl.create({
+      component: FilterPage,
+      componentProps: { }
+    });
+    await modal.present();
+    await modal.onWillDismiss();
   }
 
 }
