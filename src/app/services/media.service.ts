@@ -55,7 +55,7 @@ export class MediaService {
         let fileReader = new FileReader();
         fileReader.readAsDataURL(blob);
         fileReader.onloadend = function() {
-          alert('show source in ' + video.id);
+          //alert('show source in ' + video.id);
           video.src = fileReader.result;
         }
         // let code = btoa(String.fromCharCode.apply(null, new Uint8Array(this.response)));
