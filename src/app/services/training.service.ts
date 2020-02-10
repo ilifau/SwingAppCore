@@ -374,17 +374,24 @@ export class TrainingService {
    * Find new items for today
    */
   private findNewIds(max: number) {
-    let count: number = 0;
-
+    let candidateIds = [];
     this.status.items.forEach((item: MemoItem) => {
-        if (count < max
-            && item.views == 0
+        if (item.views == 0
             && this.wordIds.indexOf(item.id) >=0
             && this.status.newIds.indexOf(item.id) < 0
         ) {
-          this.status.newIds.push(item.id);
-          count++;
+          candidateIds.push(item.id);
         }
+    });
+
+    this.shuffle(candidateIds);
+
+    let count: number = 0;
+    candidateIds.forEach((id: string) => {
+      if (count < max) {
+        this.status.newIds.push(id);
+        count++;
+      }
     });
   }
 
@@ -522,4 +529,30 @@ export class TrainingService {
       isRepeatAgain: quality < 4
     }
   }
+
+  /**
+   * Randomly shuffle an array
+   * https://stackoverflow.com/a/2450976/1293256
+   * @param  {Array} array The array to shuffle
+   * @return {String}      The first item in the shuffled array
+   */
+  private shuffle (array) {
+
+    var currentIndex = array.length;
+    var temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
 }
