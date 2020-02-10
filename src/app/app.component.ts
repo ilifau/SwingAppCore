@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { MenuController, Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private router: Router,
   ) {
     this.initializeApp();
   }
@@ -35,6 +37,7 @@ export class AppComponent {
       toast
           .onDidDismiss()
           .then(() => this.swUpdate.activateUpdate())
+          .then(() => this.router.navigate(['/tabs/home']))
           .then(() => window.location.reload());
     });
   }
