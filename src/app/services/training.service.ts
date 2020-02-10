@@ -400,17 +400,25 @@ export class TrainingService {
    * Find items to review today
    */
   private findReviewIds(max: number) {
-    let count: number = 0;
     let today:string = this.getToday();
 
+    let candidateIds = [];
     this.status.items.forEach((item: MemoItem) => {
-      if (count < max
-          && item.views > 0
+      if (item.views > 0
           && this.wordIds.indexOf(item.id) >=0
           && this.status.reviewIds.indexOf(item.id) < 0
           && this.dayInterval(item.nextDay, today) >= 0
       ) {
-        this.status.reviewIds.push(item.id);
+        candidateIds.push(item.id);
+      }
+    });
+
+    this.shuffle(candidateIds);
+
+    let count: number = 0;
+    candidateIds.forEach((id: string) => {
+      if (count < max) {
+        this.status.reviewIds.push(id);
         count++;
       }
     });
