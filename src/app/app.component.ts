@@ -4,6 +4,7 @@ import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router} from '@angular/router';
+import { TextService } from './services/text.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,12 @@ import { Router} from '@angular/router';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  checkToast: HTMLIonToastElement;
+  updateToast: HTMLIonToastElement;
+
+  texts: any = {};
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -18,29 +25,78 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
     private router: Router,
+
+    public textService: TextService
   ) {
     this.initializeApp();
   }
 
   async ngOnInit() {
+    this.textService.load().subscribe((data: any) => {
+      this.texts = data;
+    });
 
-    this.swUpdate.available.subscribe(async res => {
-      const toast = await this.toastCtrl.create({
-        message: 'Update available!',
+    this.handleUpdate();
+   }
+
+  /**
+   * Force a check for available updates
+   */
+  async checkForUpdate() {
+
+    if (this.checkToast) {
+      void this.checkToast.dismiss();
+    }
+
+    this.swUpdate.checkForUpdate()
+        .then(async () => {
+          this.checkToast = await this.toastCtrl.create({
+            message: this.texts.commonUpdateCheckSucceeded,
+            showCloseButton: true,
+            position: 'top',
+            closeButtonText: this.texts.commonHide
+          });
+          await this.checkToast.present();
+        })
+        .catch(async () => {
+           this.checkToast = await this.toastCtrl.create({
+            message: this.texts.commonUpdateCheckFailed,
+            showCloseButton: true,
+            position: 'top',
+            closeButtonText: this.texts.commonHide
+          });
+          await this.checkToast.present();
+        })
+  }
+
+
+  /**
+   * Handle an available, already downloaded update
+   */
+  async handleUpdate() {
+    this.swUpdate.available.subscribe(async event => {
+
+      if (this.checkToast) {
+        void this.checkToast.dismiss();
+      }
+
+      this.updateToast = await this.toastCtrl.create({
+        message: this.texts.commonUpdateAvailable + event.available.hash.substr(0,4),
         showCloseButton: true,
-        position: 'bottom',
-        closeButtonText: `Reload`
+        position: 'top',
+        closeButtonText: this.texts.commonUpdateActivate
       });
 
-      await toast.present();
+      await this.updateToast.present();
 
-      toast
+      this.updateToast
           .onDidDismiss()
           .then(() => this.swUpdate.activateUpdate())
           .then(() => this.router.navigate(['/tabs/home']))
           .then(() => window.location.reload());
     });
   }
+
 
   initializeApp() {
     this.platform.ready().then(() => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TextService } from '../../services/text.service';
 import { FilterPage } from '../filter/filter.page';
 import { ModalController } from '@ionic/angular';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomePage implements OnInit {
 
   constructor(
       public modalCtrl: ModalController,
-      public textService: TextService
+      public textService: TextService,
+      public app: AppComponent
   ) {}
 
   ngOnInit() {
@@ -29,5 +31,9 @@ export class HomePage implements OnInit {
       componentProps: { }
     });
     await modal.present();
+  }
+
+  async checkForUpdate() {
+    await this.app.checkForUpdate();
   }
 }
