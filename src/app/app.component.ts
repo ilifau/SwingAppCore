@@ -45,26 +45,29 @@ export class AppComponent {
   async checkForUpdate() {
 
     if (this.checkToast) {
-      void this.checkToast.dismiss();
+      await this.checkToast.dismiss();
     }
+      this.checkToast = await this.toastCtrl.create({
+          message: this.texts.commonUpdateCheckSucceeded,
+          showCloseButton: true,
+          position: 'top',
+          closeButtonText: this.texts.commonHide
+      });
+      this.checkToast.onDidDismiss().then(() => {this.checkToast = null});
+      await this.checkToast.present();
 
-    this.swUpdate.checkForUpdate()
-        .then(async () => {
-          this.checkToast = await this.toastCtrl.create({
-            message: this.texts.commonUpdateCheckSucceeded,
-            showCloseButton: true,
-            position: 'top',
-            closeButtonText: this.texts.commonHide
-          });
-          await this.checkToast.present();
-        })
+      this.swUpdate.checkForUpdate()
         .catch(async () => {
+            if (this.checkToast) {
+                await this.checkToast.dismiss();
+            }
            this.checkToast = await this.toastCtrl.create({
             message: this.texts.commonUpdateCheckFailed,
             showCloseButton: true,
             position: 'top',
             closeButtonText: this.texts.commonHide
           });
+          this.checkToast.onDidDismiss().then(() => {this.checkToast = null});
           await this.checkToast.present();
         })
   }
@@ -77,7 +80,7 @@ export class AppComponent {
     this.swUpdate.available.subscribe(async event => {
 
       if (this.checkToast) {
-        void this.checkToast.dismiss();
+        await this.checkToast.dismiss();
       }
 
       this.updateToast = await this.toastCtrl.create({
