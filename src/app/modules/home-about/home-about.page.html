@@ -79,6 +79,20 @@
 
       </ion-list>
 
+      <h2 class="ion-text-center" *ngIf="texts.aboutFAUDictionaryShort" [innerHTML]="texts.aboutFAUDictionaryShort"></h2>
+
+      <p class="ion-text-center" *ngIf="texts.aboutFAUDictionaryLong" [innerHTML]="texts.aboutFAUDictionaryLong"></p>
+
+      <p *ngIf="media.aboutLLDigitalLogo" class="ion-text-center">
+        <img style="max-width: 300px;" src="content/{{media.aboutLLDigitalLogo}}" />
+      </p>
+      <p *ngIf="media.aboutLLDiversityLogo" class="ion-text-center">
+        <img style="max-width: 300px;" src="content/{{media.aboutLLDiversityLogo}}" />
+      </p>
+      <p *ngIf="media.aboutQuisIIBmbfLogo" class="ion-text-center">
+        <img style="max-height: 300px;" src="content/{{media.aboutQuisIIBmbfLogo}}" />
+      </p>
+
       <p class="ion-text-center">
         <ion-button fill="clear" routerLink="/tabs/home/imprint">{{texts.homeLinkImprint}}</ion-button>
         <ion-button fill="clear" routerLink="/tabs/home/privacy">{{texts.homeLinkPrivacy}}</ion-button>

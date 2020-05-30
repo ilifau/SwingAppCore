@@ -23,6 +23,11 @@
   <h2 [innerHTML]="texts.imprintCopyrightHead"></h2>
   <p [innerHTML]="texts.imprintCopyrightText"></p>
 
+  <h2 *ngIf="texts.imprintSuperMemoHead" [innerHTML]="texts.imprintSuperMemoHead"></h2>
+  <a *ngIf="texts.imprintSuperMemoLink" target="_blank" [href]="texts.imprintSuperMemoLink">{{texts.imprintSuperMemoLink}}</a>
+  <p *ngIf="texts.imprintSuperMemoText" [innerHTML]="texts.imprintSuperMemoText"></p>
+
+
   <p class="ion-text-center">
     <ion-button fill="clear" routerLink="/tabs/home/about">{{texts.homeLinkAbout}}</ion-button>
     <ion-button fill="clear" routerLink="/tabs/home/privacy">{{texts.homeLinkPrivacy}}</ion-button>
