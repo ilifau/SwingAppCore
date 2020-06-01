@@ -11,13 +11,16 @@ import { AppComponent } from '../../app.component';
 })
 export class HomePage implements OnInit {
 
+  isApp: boolean = false;
   texts: any = {};
 
   constructor(
       public modalCtrl: ModalController,
       public textService: TextService,
       public app: AppComponent
-  ) {}
+  ) {
+    this.isApp = this.app.isApp();
+  }
 
   ngOnInit() {
     this.textService.load().subscribe((data: any) => {

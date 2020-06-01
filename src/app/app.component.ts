@@ -31,12 +31,21 @@ export class AppComponent {
     this.initializeApp();
   }
 
+    /**
+     * Check if the app is a real app
+     */
+  public isApp(): boolean {
+      return false;
+  }
+
   async ngOnInit() {
     this.textService.load().subscribe((data: any) => {
       this.texts = data;
     });
 
-    this.handleUpdate();
+    if (!this.isApp()) {
+        this.handleUpdate();
+    }
    }
 
   /**
