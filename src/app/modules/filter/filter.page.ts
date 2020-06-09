@@ -54,9 +54,6 @@ export class FilterPage implements OnInit {
     this.units.forEach(unit => {
       unit.isChecked = check;
     });
-
-    const excludedUnitIds = this.units.filter(c => !c.isChecked).map(c => c.id);
-    this.dictService.setExcludedUnitIds(excludedUnitIds);
   }
 
   selectModule(id: string, check: boolean) {
@@ -67,9 +64,6 @@ export class FilterPage implements OnInit {
         });
       }
     });
-
-    const excludedUnitIds = this.units.filter(c => !c.isChecked).map(c => c.id);
-    this.dictService.setExcludedUnitIds(excludedUnitIds);
   }
 
 
