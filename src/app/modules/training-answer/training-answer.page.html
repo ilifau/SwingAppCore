@@ -34,7 +34,7 @@
   <section *ngIf="showSign">
 
     <div *ngIf="word.videoName">
-      <video id="answerVideoName{{word.id}}" src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls controlsList="nodownload"></video>
+      <video id="answerVideoName{{word.id}}" src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls controlsList="nodownload" preload="none"></video>
     </div>
 
   </section>

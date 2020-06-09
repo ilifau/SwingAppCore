@@ -6,7 +6,7 @@
       </ion-buttons>
       <ion-buttons slot="end">
         <ion-button (click)="presentFilter()">
-          <ion-icon slot="icon-only" name="menu"></ion-icon>
+          <ion-icon slot="icon-only" name="funnel"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -21,7 +21,7 @@
     </div>
 
     <p *ngIf="unit.videoName">
-      <video id="unitVideoName{{unit.id}}" src="content/{{unit.videoName}}" poster="content/{{unit.videoNameStart}}" controls controlsList="nodownload"></video>
+      <video id="unitVideoName{{unit.id}}" src="content/{{unit.videoName}}" poster="content/{{unit.videoNameStart}}" controls controlsList="nodownload" preload="none"></video>
     </p>
 
     <div *ngIf="unit.description" class="ion-padding-horizontal">
@@ -29,7 +29,7 @@
     </div>
 
     <p *ngIf="unit.videoDesc">
-      <video id="unitVideoDesc{{unit.id}}" src="content/{{unit.videoDesc}}" poster="content/{{unit.videoDescStart}}" controls controlsList="nodownload"></video>
+      <video id="unitVideoDesc{{unit.id}}" src="content/{{unit.videoDesc}}" poster="content/{{unit.videoDescStart}}" controls controlsList="nodownload" preload="none"></video>
     </p>
 
   </section>

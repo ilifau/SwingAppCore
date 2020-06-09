@@ -15,7 +15,7 @@
     </div>
 
     <div [hidden]="!word.videoName">
-      <video id="dictVideoName{{word.id}}" src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls controlsList="nodownload"></video>
+      <video id="dictVideoName{{word.id}}" src="content/{{word.videoName}}" poster="content/{{word.videoNameStart}}" controls controlsList="nodownload" preload="none" preload="none"></video>
     </div>
 
     <div class="ion-padding-horizontal">
@@ -24,7 +24,7 @@
     </div>
 
     <div [hidden]="!word.videoDesc">
-      <video id="dictVideoDesc{{word.id}}" src="content/{{word.videoDesc}}" poster="content/{{word.videoDescStart}}" controls controlsList="nodownload"></video>
+      <video id="dictVideoDesc{{word.id}}" src="content/{{word.videoDesc}}" poster="content/{{word.videoDescStart}}" controls controlsList="nodownload" preload="none" preload="none"></video>
     </div>
 
     <div class="ion-padding-horizontal" *ngIf="word.synonyms">
