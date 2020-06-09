@@ -1,7 +1,8 @@
 {
   "name": "swingApp",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
