@@ -45,11 +45,10 @@
       </ion-item>
     </ion-list>
 
+    <h2>{{texts.trainStartTraining}}</h2>
+
     <p class="ion-text-center" *ngIf="overview.todayCount > 0">
-      <ion-button (click)="startTraining(MemoMode.Random)">{{texts.trainStartTraining}}</ion-button>
-      <br />
-      <ion-button fill="outline" (click)="startTraining(MemoMode.WordSign)">{{texts.trainShowWordAskSign}}</ion-button>
-      <br />
+      <ion-button (click)="startTraining(MemoMode.WordSign)">{{texts.trainShowWordAskSign}}</ion-button>
       <ion-button fill="outline" (click)="startTraining(MemoMode.SignWord)">{{texts.trainShowSignAskWord}}</ion-button>
     </p>
 
